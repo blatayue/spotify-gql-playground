@@ -1,0 +1,66 @@
+import query from "micro-query";
+import querystring from "querystring";
+import fetch from "node-fetch";
+import cookie from "cookie";
+import { send, RequestHandler } from "micro";
+import { sign } from "jsonwebtoken";
+
+// This micro server handles the oauth2 access token flow
+// It is called with my custom url from spotify
+// It handles the code exchange for an access token and refresh token
+// It signs the token response as a jwt and sets it as a cookie
+// It finally redirects to the graphql playground
+
+
+const spotifyTokenEndpoint = "https://accounts.spotify.com/api/token";
+const fetchOpts = (code: string) => ({
+  method: "POST",
+  headers: {
+    "content-type": "application/x-www-form-urlencoded",
+    Authorization: `Basic ${new Buffer(
+      `${process.env.spotify_client_id}:${process.env.spotify_client_secret}`
+    ).toString("base64")}`
+  },
+  body: querystring.stringify({
+    grant_type: "authorization_code",
+    redirect_uri: process.env.redirect_uri,
+    code
+  })
+});
+
+const formatSpotifyResponse = async body => ({
+  token_response: await body.json(),
+  status: body.status
+});
+const checkSpotifyResponse = ({ status, token_response }) => {
+  console.log(status, token_response);
+  return { token_response };
+};
+
+const prepCookie = ({ token_response }) => ({
+  cookieString: cookie.serialize(
+    "spotify_auth",
+    sign(token_response, process.env.jwt_secret), // make jwt
+    {
+      expires: new Date("October 6, 2019 19:00:00"), // replace with moment date set for a few days
+      path: "/" // Haven't tested if necessary
+    }
+  )
+});
+const sendToPlaygroundWithCookie = res => ({ cookieString }) => {
+  console.log(cookieString)
+  res.setHeader("Set-Cookie", cookieString);
+  res.setHeader("Location", `http://localhost:3000/graphql`); // redirect to playground for now
+  send(res, 301);
+};
+
+const handler: RequestHandler = async (req, res) => {
+  fetch(spotifyTokenEndpoint, fetchOpts(query(req).code)) // get access_token , refresh_token
+    .then(formatSpotifyResponse) // make api res easier to work with
+    .then(checkSpotifyResponse) // console log to verify everything's going smoothly
+    .then(prepCookie) // serialize a cookie
+    .then(sendToPlaygroundWithCookie(res)) // rather proud of that function name
+    .catch(err => send(res, 500, err)); // It will inevitably fail, may as well know why. probably api abuse
+};
+
+export default handler;

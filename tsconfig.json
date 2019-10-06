@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "lib": ["esnext"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "inlineSourceMap": true,
+    "esModuleInterop": true
+  },
+  "include": ["*", "src/gqlServer.ts", "src/spotifyContext.ts", "src/schema.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
