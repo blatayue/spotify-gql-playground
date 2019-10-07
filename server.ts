@@ -13,7 +13,7 @@ import { sign } from "jsonwebtoken";
 
 
 const spotifyTokenEndpoint = "https://accounts.spotify.com/api/token";
-const fetchOpts = (code: string) => ({
+const fetchOpts = ({code, req}) => ({
   method: "POST",
   headers: {
     "content-type": "application/x-www-form-urlencoded",
@@ -23,7 +23,7 @@ const fetchOpts = (code: string) => ({
   },
   body: querystring.stringify({
     grant_type: "authorization_code",
-    redirect_uri: process.env.redirect_uri,
+    redirect_uri: `https://${req.headers["x-forwarded-host"]}/callback/` || 'http://localhost:3000/callback/',
     code
   })
 });
@@ -56,7 +56,7 @@ const sendToPlaygroundWithCookie =  ({req, res }) => ({ cookieString }) => {
 };
 
 const handler: RequestHandler = async (req, res) => {
-  fetch(spotifyTokenEndpoint, fetchOpts(query(req).code)) // get access_token , refresh_token
+  fetch(spotifyTokenEndpoint, fetchOpts({code: query(req).code, req})) // get access_token , refresh_token
     .then(formatSpotifyResponse) // make api res easier to work with
     .then(checkSpotifyResponse) // console log to verify everything's going smoothly
     .then(prepCookie) // serialize a cookie
