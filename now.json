@@ -1,5 +1,14 @@
 {
   "version": 2,
+
+  "env": {
+    "auth_link": "@auth_link",
+    "spotify_client_id":"@spotify_client_id",
+    "spotify_client_secret": "@spotify_client_secret",
+    "redirect_uri": "@redirect_uri",
+    "jwt_secret": "@jwt_secret"
+  },
+
   "builds": [
     {
       "src": "*.ts",
