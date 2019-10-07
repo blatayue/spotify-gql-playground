@@ -50,7 +50,7 @@ const prepCookie = ({ token_response }) => ({
 const sendToPlaygroundWithCookie =  ({req, res }) => ({ cookieString }) => {
   console.log(cookieString)
   res.setHeader("Set-Cookie", cookieString);
-  const baseUrl = req.headers["x-forwarded-host"] || 'localhost:3000'
+  const baseUrl = `https://${req.headers["x-forwarded-host"]}` || 'http://localhost:3000'
   res.setHeader("Location", `${baseUrl}/graphql`); // redirect to playground for now
   send(res, 301);
 };
