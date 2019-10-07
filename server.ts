@@ -42,7 +42,7 @@ const prepCookie = ({ token_response }) => ({
     "spotify_auth",
     sign(token_response, process.env.jwt_secret), // make jwt
     {
-      expires: new Date("October 6, 2019 19:00:00"), // replace with moment date set for a few days
+      expires: new Date("October 8, 2019 19:00:00"), // replace with moment date set for a few days
       path: "/" // Haven't tested if necessary
     }
   )
@@ -50,7 +50,7 @@ const prepCookie = ({ token_response }) => ({
 const sendToPlaygroundWithCookie = res => ({ cookieString }) => {
   console.log(cookieString)
   res.setHeader("Set-Cookie", cookieString);
-  res.setHeader("Location", `http://localhost:3000/graphql`); // redirect to playground for now
+  res.setHeader("Location", `${process.env.NOW_URL}/graphql`); // redirect to playground for now
   send(res, 301);
 };
 
