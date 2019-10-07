@@ -50,11 +50,12 @@ const prepCookie = ({ token_response }) => ({
 const sendToPlaygroundWithCookie = res => ({ cookieString }) => {
   console.log(cookieString)
   res.setHeader("Set-Cookie", cookieString);
-  res.setHeader("Location", `${process.env.NOW_URL}/graphql`); // redirect to playground for now
+  res.setHeader("Location", `${process.env.NOW}/graphql`); // redirect to playground for now
   send(res, 301);
 };
 
 const handler: RequestHandler = async (req, res) => {
+  console.log(req.headers)
   fetch(spotifyTokenEndpoint, fetchOpts(query(req).code)) // get access_token , refresh_token
     .then(formatSpotifyResponse) // make api res easier to work with
     .then(checkSpotifyResponse) // console log to verify everything's going smoothly
