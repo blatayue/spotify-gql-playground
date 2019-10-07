@@ -5,7 +5,11 @@ import {schema} from './schema'
 
 const apolloServer = new ApolloServer({
   schema,
-  playground: true,
+  playground: {
+    settings: {
+      "request.credentials": "include"
+    }
+  },
   introspection: true,
   context: spotifyContext
 });
