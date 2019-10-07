@@ -47,20 +47,20 @@ const prepCookie = ({ token_response }) => ({
     }
   )
 });
-const sendToPlaygroundWithCookie = res => ({ cookieString }) => {
+const sendToPlaygroundWithCookie =  ({req, res }) => ({ cookieString }) => {
   console.log(cookieString)
   res.setHeader("Set-Cookie", cookieString);
-  res.setHeader("Location", `${process.env.NOW}/graphql`); // redirect to playground for now
+  const baseUrl = req.headers["x-forwarded-host"] || 'localhost:3000'
+  res.setHeader("Location", `${baseUrl}/graphql`); // redirect to playground for now
   send(res, 301);
 };
 
 const handler: RequestHandler = async (req, res) => {
-  console.log(req.headers)
   fetch(spotifyTokenEndpoint, fetchOpts(query(req).code)) // get access_token , refresh_token
     .then(formatSpotifyResponse) // make api res easier to work with
     .then(checkSpotifyResponse) // console log to verify everything's going smoothly
     .then(prepCookie) // serialize a cookie
-    .then(sendToPlaygroundWithCookie(res)) // rather proud of that function name
+    .then(sendToPlaygroundWithCookie({res, req})) // rather proud of that function name
     .catch(err => send(res, 500, err)); // It will inevitably fail, may as well know why. probably api abuse
 };
 

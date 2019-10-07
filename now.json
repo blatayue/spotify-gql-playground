@@ -30,7 +30,7 @@
     },
     {
       "src": "/",
-      "status": 301,
+      "status": 308,
       "headers": {
         "Location": "https://accounts.spotify.com/authorize?response_type=code&client_id=be1ce429ce1e4c5182dfd81abc83ff0e&scope=playlist-modify-private%20playlist-read-private%20user-library-read%20user-top-read&redirect_uri=https%3A%2F%2Fspotify-gql-playground.blatayuze.now.sh%2Fcallback%2F"
       }
