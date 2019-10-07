@@ -23,7 +23,7 @@ const fetchOpts = ({code, req}) => ({
   },
   body: querystring.stringify({
     grant_type: "authorization_code",
-    redirect_uri: `https://${req.headers["x-forwarded-host"]}/callback/` || 'http://localhost:3000/callback/',
+    redirect_uri: `${req.headers['x-forwarded-proto']}://${req.headers["x-forwarded-host"]}/callback/`,
     code
   })
 });
@@ -50,12 +50,12 @@ const prepCookie = ({ token_response }) => ({
 const sendToPlaygroundWithCookie =  ({req, res }) => ({ cookieString }) => {
   console.log(cookieString)
   res.setHeader("Set-Cookie", cookieString);
-  const baseUrl = `https://${req.headers["x-forwarded-host"]}` || 'http://localhost:3000'
-  res.setHeader("Location", `${baseUrl}/graphql`); // redirect to playground for now
+  res.setHeader("Location", `${req.headers['x-forwarded-proto']}://${req.headers["x-forwarded-host"]}/graphql`); // redirect to playground for now
   send(res, 301);
 };
 
 const handler: RequestHandler = async (req, res) => {
+  console.log(req.headers)
   fetch(spotifyTokenEndpoint, fetchOpts({code: query(req).code, req})) // get access_token , refresh_token
     .then(formatSpotifyResponse) // make api res easier to work with
     .then(checkSpotifyResponse) // console log to verify everything's going smoothly
