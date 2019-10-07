@@ -54,6 +54,7 @@ const sendToPlaygroundWithCookie =  ({req, res }) => ({ cookieString }) => {
   send(res, 301);
 };
 
+// TODO: Replace with Algebra
 const handler: RequestHandler = async (req, res) => {
   console.log(req.headers)
   fetch(spotifyTokenEndpoint, fetchOpts({code: query(req).code, req})) // get access_token , refresh_token
