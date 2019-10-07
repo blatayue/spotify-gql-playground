@@ -1,17 +1,14 @@
 {
-  "name": "microspotifyoauth2server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.ts.js",
-  "author": "",
-  "license": "ISC",
+  "name": "micro-spotify-oauth2-server",
+  "version": "0.0.1",
+  "description": "runs gql server serving spotify api authed with jwt cookie of oauth2 code flow creds",
+  "main": "server.ts",
+  "author": "blatayue - Andrew Morris",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "npx now dev"
+  },
   "dependencies": {
-    "@types/cookie": "^0.3.3",
-    "@types/jsonwebtoken": "^8.3.4",
-    "@types/micro": "^7.3.3",
-    "@types/node": "^12.7.11",
-    "@types/node-fetch": "^2.5.2",
-    "@types/spotify-web-api-node": "^4.0.1",
     "apollo-server-micro": "^2.9.4",
     "cookie": "^0.4.0",
     "jsonwebtoken": "^8.5.1",
@@ -21,5 +18,14 @@
     "node-fetch": "^2.6.0",
     "query-string": "^6.8.3",
     "spotify-web-api-node": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/cookie": "^0.3.3",
+    "@types/jsonwebtoken": "^8.3.4",
+    "@types/micro": "^7.3.3",
+    "@types/node": "^12.7.11",
+    "@types/node-fetch": "^2.5.2",
+    "@types/spotify-web-api-node": "^4.0.1",
+    "now": "^16.3.1"
   }
 }
