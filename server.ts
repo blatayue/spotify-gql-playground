@@ -11,9 +11,8 @@ import { sign } from "jsonwebtoken";
 // It signs the token response as a jwt and sets it as a cookie
 // It finally redirects to the graphql playground
 
-
 const spotifyTokenEndpoint = "https://accounts.spotify.com/api/token";
-const fetchOpts = ({code, req}) => ({
+const fetchOpts = ({ code, req }) => ({
   method: "POST",
   headers: {
     "content-type": "application/x-www-form-urlencoded",
@@ -23,7 +22,7 @@ const fetchOpts = ({code, req}) => ({
   },
   body: querystring.stringify({
     grant_type: "authorization_code",
-    redirect_uri: `${req.headers['x-forwarded-proto']}://${req.headers["x-forwarded-host"]}/callback/`,
+    redirect_uri: `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/callback/`,
     code
   })
 });
@@ -47,21 +46,24 @@ const prepCookie = ({ token_response }) => ({
     }
   )
 });
-const sendToPlaygroundWithCookie =  ({req, res }) => ({ cookieString }) => {
-  console.log(cookieString)
+const sendToPlaygroundWithCookie = ({ req, res }) => ({ cookieString }) => {
+  console.log(cookieString);
   res.setHeader("Set-Cookie", cookieString);
-  res.setHeader("Location", `${req.headers['x-forwarded-proto']}://${req.headers["x-forwarded-host"]}/graphql`); // redirect to playground for now
+  res.setHeader(
+    "Location",
+    `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/graphql`
+  ); // redirect to playground for now
   send(res, 301);
 };
 
 // TODO: Replace with Algebra
 const handler: RequestHandler = async (req, res) => {
-  console.log(req.headers)
-  fetch(spotifyTokenEndpoint, fetchOpts({code: query(req).code, req})) // get access_token , refresh_token
+  console.log(req.headers);
+  fetch(spotifyTokenEndpoint, fetchOpts({ code: query(req).code, req })) // get access_token , refresh_token
     .then(formatSpotifyResponse) // make api res easier to work with
     .then(checkSpotifyResponse) // console log to verify everything's going smoothly
     .then(prepCookie) // serialize a cookie
-    .then(sendToPlaygroundWithCookie({res, req})) // rather proud of that function name
+    .then(sendToPlaygroundWithCookie({ res, req })) // rather proud of that function name
     .catch(err => send(res, 500, err)); // It will inevitably fail, may as well know why. probably api abuse
 };
 

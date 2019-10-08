@@ -1,7 +1,6 @@
 import { ApolloServer } from "apollo-server-micro";
 import { spotifyContext } from "./spotifyContext";
-import {schema} from './schema'
-
+import { schema } from "./schema";
 
 const apolloServer = new ApolloServer({
   schema,

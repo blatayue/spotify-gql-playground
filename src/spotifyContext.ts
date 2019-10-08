@@ -22,9 +22,9 @@ interface jwtPayloadSpotify {
   scope: string;
 }
 export const spotifyContext = async ({ req }) => {
-    const cookies = cookie.parse(req.headers.cookie);
-    const spotify_jwt = cookies.spotify_auth || "";
-    console.log('includes jwt:', !!spotify_jwt)
+  const cookies = cookie.parse(req.headers.cookie);
+  const spotify_jwt = cookies.spotify_auth || "";
+  console.log("includes jwt:", !!spotify_jwt);
   try {
     const token = <jwtPayloadSpotify>(
       decode(spotify_jwt, process.env.jwt_secret, false, "HS256")
@@ -51,7 +51,7 @@ export const spotifyContext = async ({ req }) => {
       // pull access token from body of (resolved) refresh of access token
       const new_access_token = (await webAPI.refreshAccessToken()).body
         .access_token;
-        // return refreshed user authed api
+      // return refreshed user authed api
       return {
         spotify: new SpotifyWebApi({
           ...clientSecretAndId,

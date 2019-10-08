@@ -10,20 +10,25 @@ const resolvers = {
       parent,
       args,
       context: { spotify: SpotifyWebApi }
-    ) => playlistIdsToCamelot({ spotify: context.spotify, playlists: args.ids }),
+    ) =>
+      playlistIdsToCamelot({ spotify: context.spotify, playlists: args.ids }),
     getCamelotFromPlaylist: async (
       parent,
       args,
       context: { spotify: SpotifyWebApi }
-    ) => playlistIdsToCamelot({ spotify: context.spotify, playlists: [args.id] }).then(camelot => camelot[0])
+    ) =>
+      playlistIdsToCamelot({
+        spotify: context.spotify,
+        playlists: [args.id]
+      }).then(camelot => camelot[0])
   }
 };
 
 const typeDefs = gql`
   type Query {
     getAuthLink: String
-    getCamelotFromPlaylist (id: String): [camelotObj]
-    getCamelotFromPlaylists (ids: [String]): [[camelotObj]]
+    getCamelotFromPlaylist(id: String): [camelotObj]
+    getCamelotFromPlaylists(ids: [String]): [[camelotObj]]
   }
   type camelotObj {
     title: String
