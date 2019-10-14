@@ -30,7 +30,6 @@ export const spotifyContext = async ({ req }) => {
       decode(spotify_jwt, process.env.jwt_secret, false, "HS256")
     );
     return {
-      //   ...res,
       spotify: new SpotifyWebApi({
         ...clientSecretAndId,
         ...withKnownTokens({ token })
@@ -39,8 +38,10 @@ export const spotifyContext = async ({ req }) => {
   } catch (e) {
     console.error(e);
     if (e === "Token expired") {
-      // skip verify by passing true to get old access/refresh tokens to refresh access token
+      console.log('refreshing token')
+      // skip verify sig by passing true to get old access/refresh tokens to refresh access token
       // if somebody adds or modifies the payload here idc, tokens are the only thing used atm
+      // attack surface seems quite limited
       const token = <jwtPayloadSpotify>(
         decode(spotify_jwt, process.env.jwt_secret, true, "HS256")
       );

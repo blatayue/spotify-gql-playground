@@ -6,7 +6,8 @@ const apolloServer = new ApolloServer({
   schema,
   playground: {
     settings: {
-      "request.credentials": "include"
+      // "schema.polling.enable": false, // I wish this worked
+      "request.credentials": "include",
     }
   },
   introspection: true,

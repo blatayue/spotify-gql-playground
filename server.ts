@@ -12,59 +12,59 @@ import { sign } from "jsonwebtoken";
 // It finally redirects to the graphql playground
 
 const spotifyTokenEndpoint = "https://accounts.spotify.com/api/token";
-const fetchOpts = ({ code, req }) => ({
+const fetchOpts = ({ code, headers }) => ({
   method: "POST",
   headers: {
     "content-type": "application/x-www-form-urlencoded",
-    Authorization: `Basic ${new Buffer(
+    Authorization: `Basic ${Buffer.from(
       `${process.env.spotify_client_id}:${process.env.spotify_client_secret}`
     ).toString("base64")}`
   },
   body: querystring.stringify({
     grant_type: "authorization_code",
-    redirect_uri: `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/callback/`,
+    redirect_uri: `${headers["x-forwarded-proto"]}://${headers["x-forwarded-host"]}/callback/`,
     code
   })
 });
 
-const formatSpotifyResponse = async body => ({
-  token_response: await body.json(),
-  status: body.status
-});
-const checkSpotifyResponse = ({ status, token_response }) => {
-  console.log(status, token_response);
-  return { token_response };
-};
-
-const prepCookie = ({ token_response }) => ({
-  cookieString: cookie.serialize(
-    "spotify_auth",
-    sign(token_response, process.env.jwt_secret), // make jwt
-    {
-      expires: new Date("October 8, 2019 19:00:00"), // replace with moment date set for a few days
-      path: "/" // Haven't tested if necessary
-    }
-  )
-});
-const sendToPlaygroundWithCookie = ({ req, res }) => ({ cookieString }) => {
-  console.log(cookieString);
-  res.setHeader("Set-Cookie", cookieString);
-  res.setHeader(
-    "Location",
-    `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/graphql`
-  ); // redirect to playground for now
-  send(res, 301);
+const sendToPlaygroundWithCookie = ({ req, res }) => spotifyResponse => {
+  if (spotifyResponse.error) {
+    // retry auth
+    console.error(spotifyResponse.error);
+    res.setHeader(
+      "Location",
+      `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/`
+    );
+    send(res, 301);
+  } else {
+    // redirect to playground
+    res.setHeader(
+      "Set-Cookie",
+      cookie.serialize(
+        "spotify_auth",
+        sign(spotifyResponse, process.env.jwt_secret), // make jwt
+        {
+          expires: new Date("October 11, 2019 19:00:00"),
+          path: "/"
+        }
+      )
+    );
+    res.setHeader(
+      "Location",
+      `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/graphql`
+    );
+    send(res, 301);
+  }
 };
 
 // TODO: Replace with Algebra
 const handler: RequestHandler = async (req, res) => {
-  console.log(req.headers);
-  fetch(spotifyTokenEndpoint, fetchOpts({ code: query(req).code, req })) // get access_token , refresh_token
-    .then(formatSpotifyResponse) // make api res easier to work with
-    .then(checkSpotifyResponse) // console log to verify everything's going smoothly
-    .then(prepCookie) // serialize a cookie
-    .then(sendToPlaygroundWithCookie({ res, req })) // rather proud of that function name
-    .catch(err => send(res, 500, err)); // It will inevitably fail, may as well know why. probably api abuse
+  // console.log(req.headers);
+  const opts = fetchOpts({ code: query(req).code, headers: req.headers });
+  fetch(spotifyTokenEndpoint, opts)
+    .then(res => res.json())
+    .then(sendToPlaygroundWithCookie({ res, req }))
+    .catch(err => send(res, 500, err));
 };
 
 export default handler;
