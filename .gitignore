@@ -3,3 +3,6 @@ node_modules
 notes.md
 *.code-workspace
 test.ts
+.vscode
+.DS_Store
+
