@@ -5,7 +5,7 @@ export const PrivateUserObject = gql`
     country: String # user-read-private scope
     display_name: String # nullable
     email: String # user-read-email scope
-    external_urls: Object # ExternalUrlObject - TODO - type this object - spotify API missing type
+    external_urls: ExternalUrlObject
     followers: FollowersObject
     href: String
     id: String

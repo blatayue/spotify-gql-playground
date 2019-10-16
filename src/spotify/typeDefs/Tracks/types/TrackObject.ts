@@ -13,11 +13,13 @@ export const TrackObject = gql`
     duration_ms: Int
     explicit: Boolean
     external_ids: ExternalIdObject
-    external_urls: Object # ExternalUrlObject - TODO - type this object - spotify API missing type
+    external_urls: ExternalUrlObject
     href: String
     id: String
     is_playable: Boolean
-    linked_from: TrackObject
+    linked_from: {
+      external_urls: ExternalUrlObject
+    }
     restrictions: [TrackRestrictionObject]
     name: String
     popularity: Int

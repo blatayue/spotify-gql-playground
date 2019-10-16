@@ -1,37 +1,67 @@
-export { AlbumObject, SimplifiedAlbumObject } from "./Albums";
+import { makeExecutableSchema } from "apollo-server-micro";
 
-export { ArtistObject } from "./Artists";
-
-export { AudioFeaturesObject, TuneableTrackObject } from "./Echonest";
-
-export { PlaylistObject, PlaylistTrackObject } from "./Playlists";
-
-export {
+import { AlbumObject, CopyrightObject, SimplifiedAlbumObject } from "./typeDefs/Albums";
+import { ArtistObject, SimplifiedArtistObject } from "./typeDefs/Artists";
+import { AudioFeaturesObject, TuneableTrackObject } from "./typeDefs/Echonest";
+import { PlaylistObject, PlaylistTrackObject } from "./typeDefs/Playlists";
+import {
   RecommendationSeedObject,
   RecommendationsResponseObject
-} from "./Reccomendations";
-
-export { ExternalIdObject, SimplifiedTrackObject, TrackObject } from "./Tracks";
-
-export {
+} from "./typeDefs/Reccomendations";
+import { ExternalIdObject, SimplifiedTrackObject, TrackObject } from "./typeDefs/Tracks";
+import {
   CurrentlyPlayingObject,
   DeviceObject,
   DevicesObject,
   PlayHistoryObject,
   PrivateUserObject,
+  PublicUserObject,
   SavedAlbumObject
-} from "./Users";
-
-export {
+} from "./typeDefs/Users";
+import {
   ContextObject,
   CursorObject,
   CursorPagingObject,
   PagingObject
-} from "./apiMetadata";
-
-export {
+} from "./typeDefs/apiMetadata";
+import {
   CategoryObject,
   ExternalUrlObject,
   FollowersObject,
   ImageObject
-} from "./commonMetadata";
+} from "./typeDefs/commonMetadata";
+
+export default makeExecutableSchema({
+  typeDefs: [
+    AlbumObject,
+    ArtistObject,
+    AudioFeaturesObject,
+    CategoryObject,
+    ContextObject,
+    CopyrightObject,
+    CurrentlyPlayingObject,
+    CurrentlyPlayingObject,
+    CursorObject,
+    CursorPagingObject,
+    DeviceObject,
+    DevicesObject,
+    ExternalIdObject,
+    ExternalUrlObject,
+    FollowersObject,
+    ImageObject,
+    PagingObject,
+    PlayHistoryObject,
+    PlaylistObject,
+    PlaylistTrackObject,
+    PrivateUserObject,
+    PublicUserObject,
+    RecommendationSeedObject,
+    RecommendationsResponseObject,
+    SavedAlbumObject,
+    SimplifiedAlbumObject,
+    SimplifiedArtistObject,
+    SimplifiedTrackObject,
+    TrackObject,
+    TuneableTrackObject
+  ]
+});

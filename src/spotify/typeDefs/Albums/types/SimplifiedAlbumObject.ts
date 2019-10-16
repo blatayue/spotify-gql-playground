@@ -6,7 +6,7 @@ export const SimplifiedAlbumObject = gql`
     album_type: String # album, single, or compilation
     artists: [SimplifiedArtistObject]
     available_markets: [String]
-    external_urls: Object # ExternalUrlObject - TODO - type this object - spotify API missing type
+    external_urls: ExternalUrlObject
     href: String
     id: String
     images: [ImageObject] 

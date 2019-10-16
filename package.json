@@ -9,7 +9,7 @@
     "start:dev": "npx now dev"
   },
   "dependencies": {
-    "apollo-server-micro": "^2.9.4",
+    "apollo-server-micro": "^2.9.6",
     "cookie": "^0.4.0",
     "crocks": "^0.12.4",
     "jsonwebtoken": "^8.5.1",
@@ -26,9 +26,10 @@
     "@types/cookie": "^0.3.3",
     "@types/jsonwebtoken": "^8.3.4",
     "@types/micro": "^7.3.3",
-    "@types/node": "^12.7.11",
+    "@types/node": "^12.7.12",
     "@types/node-fetch": "^2.5.2",
     "@types/spotify-web-api-node": "^4.0.1",
-    "now": "^16.3.1"
+    "now": "^16.3.1",
+    "ts-node": "^8.4.1"
   }
 }

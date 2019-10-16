@@ -11,7 +11,7 @@ export const PlaylistObject = gql`
     owner: PublicUserObject
     public: Boolean
     snapshot_id: String
-    tracks: [Tracks]
+    tracks: [TrackObject]
     type: String # playlist
     uri: String
   }

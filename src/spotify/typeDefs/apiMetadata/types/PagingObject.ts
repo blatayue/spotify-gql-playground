@@ -24,7 +24,7 @@ import { gql } from "apollo-server-micro";
 export const PagingObject = gql`
   type PagingObject {
     href: String
-    items: [Object] # TODO - more Union Types
+    items: [CategoryObject] | [PlaylistObject] | [TrackObject] | [AlbumObject] | [PlayHistoryObject] | [ArtistObject] [ArtistObject | TrackObject] | [SimplifiedAlbumObject]
     limit: Int
     next: String
     offset: Int

@@ -11,7 +11,7 @@ export const SimplifiedTrackObject = gql`
     href: String
     id: String
     is_playable: Boolean
-    linked_from: Object # LinkedTrackObject - TODO - type this object - spotify API missing type
+    linked_from: TrackObject
     name: String
     preview_url: String
     track_number: Int
