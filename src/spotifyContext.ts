@@ -7,7 +7,7 @@ const clientSecretAndId = {
   clientSecret: process.env.spotify_client_secret
 };
 
-const withKnownTokens = ({ token }) => ({
+const withKnownTokens = ({ token }: { token: jwtPayloadSpotify }) => ({
   accessToken: token.access_token,
   refreshToken: token.refresh_token
 });
@@ -16,51 +16,45 @@ const withRefreshAndNewAccessToken = ({ token, new_access_token }) => ({
   accessToken: new_access_token
 });
 
-interface jwtPayloadSpotify {
+type jwtPayloadSpotify = {
   access_token: string;
   refresh_token: string;
   scope: string;
-}
+};
 export const spotifyContext = async ({ req }) => {
-  const cookies = cookie.parse(req.headers.cookie);
-  const spotify_jwt = cookies.spotify_auth || "";
+  const authCookie = req.headers?.cookie ?? ""; // if no cookie, empty string
+  const cookies = cookie.parse(authCookie);
+  const spotify_jwt = cookies?.spotify_auth;
   console.log("includes jwt:", !!spotify_jwt);
-  try {
-    const token = <jwtPayloadSpotify>(
-      decode(spotify_jwt, process.env.jwt_secret, false, "HS256")
-    );
-    return {
-      spotify: new SpotifyWebApi({
-        ...clientSecretAndId,
-        ...withKnownTokens({ token })
-      })
-    };
-  } catch (e) {
-    console.error(e);
-    if (e === "Token expired") {
-      console.log('refreshing token')
-      // skip verify sig by passing true to get old access/refresh tokens to refresh access token
-      // if somebody adds or modifies the payload here idc, tokens are the only thing used atm
-      // attack surface seems quite limited
-      const token = <jwtPayloadSpotify>(
-        decode(spotify_jwt, process.env.jwt_secret, true, "HS256")
+  // If cookie spotify_auth exists, decode jwt and use to auth API in context 
+  if (cookies?.spotify_auth) {
+    try {
+      const token: jwtPayloadSpotify = decode(
+        spotify_jwt,
+        process.env.jwt_secret,
+        false,
+        "HS256"
       );
-      const webAPI = new SpotifyWebApi({
-        ...clientSecretAndId,
-        ...withKnownTokens({ token })
-      });
-      // pull access token from body of (resolved) refresh of access token
-      const new_access_token = (await webAPI.refreshAccessToken()).body
-        .access_token;
-      // return refreshed user authed api
       return {
         spotify: new SpotifyWebApi({
           ...clientSecretAndId,
-          ...withRefreshAndNewAccessToken({ token, new_access_token })
+          ...withKnownTokens({ token })
         })
       };
+    } 
+    // If instead, decoding it returns an error
+    catch (e) {
+      if (e === "Token expired") {
+        console.log(e);
+        return; // will cause runtime error bc I don't verify spotify is accessible on ctx obj in resolvers
+        // TODO - return expired token/create response for unauthed calls
+      }
     }
-    console.error(spotify_jwt, e);
+  } 
+  // At this point, the cookie probably doesn't exist, Should probably figure out how to use a serverless func to just redirect
+  // Would make this a little simpler and more intutitive for the end users
+  else if (!req.headers?.cookie) {
+    console.log(`reached playground without auth cookie from ${req.headers["x-real-ip"]}`);
     return { spotify: new SpotifyWebApi({ ...clientSecretAndId }) }; // no user tokens, but still api access
   }
 };

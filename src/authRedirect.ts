@@ -1,4 +1,4 @@
-import { send, RequestHandler } from "micro";
+import { NowRequest, NowResponse } from "@now/node";
 import querystring from "querystring";
 
 const allScopes = {
@@ -19,20 +19,33 @@ const allScopes = {
   Users: ["user-read-private", "user-read-email"],
   Library: ["user-library-modify", "user-library-read"]
 };
-const allScopesStr = Object.values(allScopes).reduce((fullScopes, scopeArr) => `${fullScopes} ${scopeArr.join(' ')}`, '')
-const handler: RequestHandler = (req, res) => {
+
+
+//TODO Build endoint specific scope sets and allow for gen auth link w/ min reqs
+// join all the scopes to ask for all
+//{[API]: scopeStr[]}:: ScopeSpaceSeparatedStr
+
+export const allScopesStr = Object.values(allScopes).reduce(
+  // by appending the scopes after a space that are also space joined
+  (fullScopes, scopeArr) => `${fullScopes} ${scopeArr.join(" ")}`,
+  "" // build a string
+);
+
+
+
+const handler = (req: NowRequest, res: NowResponse) => {
+  console.log(`request from: ${req.headers["x-real-ip"]}`);
+  console.log(allScopesStr)
   const qs = querystring.stringify({
     response_type: "code",
     client_id: process.env.spotify_client_id,
     scope: allScopesStr,
+    // Like in server.ts, build redirect url dynamically
     redirect_uri: `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/callback/`
   });
 
-  const redirectUrl = `https://accounts.spotify.com/authorize?${qs}`;
-  console.log(`request from: ${req.headers["x-real-ip"]}`);
-
-  res.setHeader("Location", redirectUrl);
-  send(res, 301);
+  res.setHeader("Location", `https://accounts.spotify.com/authorize?${qs}`);
+  res.status(301).end();
 };
 
 export default handler;

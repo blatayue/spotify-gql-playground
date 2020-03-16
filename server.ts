@@ -1,17 +1,20 @@
-import query from "micro-query";
-import querystring from "querystring";
 import fetch from "node-fetch";
 import cookie from "cookie";
-import { send, RequestHandler } from "micro";
 import { sign } from "jsonwebtoken";
+import moment from 'moment'; // TODO date-fns
 
-// This micro server handles the oauth2 access token flow
-// It is called with my custom url from spotify
+import { NowRequest, NowResponse } from '@now/node'
+import querystring from "querystring";
+
+
+// This serverless func handles the oauth2 access token flow
+// It is called with my custom url from spotify and the corersponding redirect
 // It handles the code exchange for an access token and refresh token
 // It signs the token response as a jwt and sets it as a cookie
 // It finally redirects to the graphql playground
 
 const spotifyTokenEndpoint = "https://accounts.spotify.com/api/token";
+
 const fetchOpts = ({ code, headers }) => ({
   method: "POST",
   headers: {
@@ -22,20 +25,24 @@ const fetchOpts = ({ code, headers }) => ({
   },
   body: querystring.stringify({
     grant_type: "authorization_code",
+    // use Now headers to dynamically get the current url
+    // and use that to determine env for redirect uri
     redirect_uri: `${headers["x-forwarded-proto"]}://${headers["x-forwarded-host"]}/callback/`,
     code
   })
 });
 
-const sendToPlaygroundWithCookie = ({ req, res }) => spotifyResponse => {
+const sendToPlaygroundWithCookie = (req: NowRequest, res: NowResponse) => spotifyResponse => {
   if (spotifyResponse.error) {
     // retry auth
     console.error(spotifyResponse.error);
     res.setHeader(
       "Location",
+      // Could cause infinite ping-pong redirects. Maybe change - TODO
       `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/`
     );
-    send(res, 301);
+    res.status(301).end()
+
   } else {
     // redirect to playground
     res.setHeader(
@@ -44,27 +51,30 @@ const sendToPlaygroundWithCookie = ({ req, res }) => spotifyResponse => {
         "spotify_auth",
         sign(spotifyResponse, process.env.jwt_secret), // make jwt
         {
-          expires: new Date("October 11, 2019 19:00:00"),
+          // expires tomorrow utc
+          expires: new Date(moment.utc().add(1, 'h').format("MMM DD, YYYY HH:MM")),
           path: "/"
         }
       )
     );
     res.setHeader(
       "Location",
+      // Same old trick, still as effective
       `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/graphql`
     );
-    send(res, 301);
+    res.status(301).end()
   }
 };
 
 // TODO: Replace with Algebra
-const handler: RequestHandler = async (req, res) => {
-  // console.log(req.headers);
-  const opts = fetchOpts({ code: query(req).code, headers: req.headers });
+const handler = (req: NowRequest, res: NowResponse) => {
+  const opts = fetchOpts({ code: req.query.code, headers: req.headers });
   fetch(spotifyTokenEndpoint, opts)
-    .then(res => res.json())
-    .then(sendToPlaygroundWithCookie({ res, req }))
-    .catch(err => send(res, 500, err));
+    .then(async tokenRes => await tokenRes.json())
+    .then(sendToPlaygroundWithCookie(req, res))
+    .catch(err => {
+      res.status(500).send(err)
+    });
 };
 
 export default handler;

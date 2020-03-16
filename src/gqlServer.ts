@@ -10,9 +10,10 @@ const apolloServer = new ApolloServer({
       "request.credentials": "include",
     }
   },
+  tracing: true,
   introspection: true,
   context: spotifyContext
 });
-
+ 
 export const graphqlServer = apolloServer.createHandler();
 export default graphqlServer;

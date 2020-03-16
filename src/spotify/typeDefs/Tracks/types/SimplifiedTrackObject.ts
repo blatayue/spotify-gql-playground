@@ -10,7 +10,7 @@ export const SimplifiedTrackObject = gql`
     external_urls: ExternalUrlObject
     href: String
     id: String
-    is_playable: Boolean
+    is_local: Boolean
     linked_from: TrackObject
     name: String
     preview_url: String
