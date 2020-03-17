@@ -1,2 +1,2 @@
-export { ArtistObject } from "./types/ArtistObject";
-export { SimplifiedArtistObject } from "./types/SimplifiedArtistObject";
+export { ArtistObject } from "./ArtistObject";
+export { SimplifiedArtistObject } from "./SimplifiedArtistObject";

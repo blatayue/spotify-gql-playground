@@ -8,7 +8,10 @@ import { ArtistObject, SimplifiedArtistObject } from "./typeDefs/Artists";
 
 import { AudioFeaturesObject, TuneableTrackObject } from "./typeDefs/Echonest";
 
-import { PlaylistObject, PlaylistTrackObject } from "./APIs/Playlists API";
+import PlaylistQueryTypeDefs, {
+  PlaylistObject,
+  PlaylistTrackObject
+} from "./APIs/Playlists API";
 
 import {
   RecommendationSeedObject,
@@ -26,6 +29,7 @@ import {
   PublicUserObject,
   SavedAlbumObject
 } from "./APIs/User Profile API";
+
 import PlayerQueryTypeDefs, {
   CurrentlyPlayingObject,
   PlayHistoryObject,
@@ -47,36 +51,17 @@ import {
   ImageObject
 } from "./typeDefs/commonMetadata";
 
+
 export default [
-  AlbumQueryTypeDefs,
-  AlbumObject,
-  ArtistObject,
-  AudioFeaturesObject,
-  CategoryObject,
-  ContextObject,
-  CopyrightObject,
-  CurrentlyPlayingObject,
-  CursorObject,
-  CursorPagingObject,
-  DeviceObject,
-  DevicesObject,
-  ExternalIdObject,
-  ExternalUrlObject,
-  FollowersObject,
-  ImageObject,
-  PagingObject,
-  PlayHistoryObject,
-  PlayerQueryTypeDefs,
-  PlaylistObject,
-  PlaylistTrackObject,
-  PrivateUserObject,
-  PublicUserObject,
-  RecommendationSeedObject,
-  RecommendationsResponseObject,
-  SavedAlbumObject,
-  SimplifiedAlbumObject,
-  SimplifiedArtistObject,
-  SimplifiedTrackObject,
-  TrackObject,
-  TuneableTrackObject
+  ...[AlbumObject, CopyrightObject, SimplifiedAlbumObject],
+  ...[ContextObject, CursorObject, CursorPagingObject, PagingObject],
+  ...[ArtistObject, SimplifiedArtistObject],
+  ...[AudioFeaturesObject, TuneableTrackObject],
+  ...[CategoryObject, ExternalUrlObject, FollowersObject, ImageObject],
+  ...[CurrentlyPlayingObject, DeviceObject, DevicesObject, PlayHistoryObject],
+  ...[PlaylistObject, PlaylistTrackObject],
+  ...[PrivateUserObject, PublicUserObject, SavedAlbumObject],
+  ...[RecommendationSeedObject, RecommendationsResponseObject],
+  ...[ExternalIdObject, SimplifiedTrackObject, TrackObject],
+  ...[AlbumQueryTypeDefs, PlaylistQueryTypeDefs, PlayerQueryTypeDefs]
 ];

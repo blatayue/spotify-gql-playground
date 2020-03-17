@@ -40,7 +40,7 @@ const resolvers = {
       }).then(camelot => camelot[0]),
     getAccessToken: async (_, __, context: spotifyCtx) =>
       context.spotify.getAccessToken(),
-    addTracksToPlaylist: addTracksToPlaylist,
+    addTracksToPlaylist,
     getMultipleAlbums,
     getAlbum,
     getAlbumTracks,
