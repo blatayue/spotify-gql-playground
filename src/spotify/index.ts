@@ -4,9 +4,33 @@ import AlbumQueryTypeDefs, {
   SimplifiedAlbumObject
 } from "./APIs/Albums API";
 
-import { ArtistObject, SimplifiedArtistObject } from "./typeDefs/Artists";
+import { ArtistObject, SimplifiedArtistObject } from "./APIs/Artists API";
 
-import { AudioFeaturesObject, TuneableTrackObject } from "./typeDefs/Echonest";
+import {
+  RecommendationSeedObject,
+  RecommendationsResponseObject,
+  CategoryObject
+} from "./APIs/Browse API";
+
+import {
+  ContextObject,
+  CursorObject,
+  CursorPagingObject,
+  ExternalIdObject,
+  ExternalUrlObject,
+  FollowersObject,
+  ImageObject,
+  PagingObject
+} from "./APIs/Common Metadata API";
+
+import { SavedAlbumObject } from "./APIs/Library API";
+
+import PlayerQueryTypeDefs, {
+  CurrentlyPlayingObject,
+  DeviceObject,
+  DevicesObject,
+  PlayHistoryObject
+} from "./APIs/Player API";
 
 import PlaylistQueryTypeDefs, {
   PlaylistObject,
@@ -14,54 +38,47 @@ import PlaylistQueryTypeDefs, {
 } from "./APIs/Playlists API";
 
 import {
-  RecommendationSeedObject,
-  RecommendationsResponseObject
-} from "./typeDefs/Reccomendations";
-
-import {
-  ExternalIdObject,
+  AudioFeaturesObject,
   SimplifiedTrackObject,
-  TrackObject
-} from "./typeDefs/Tracks";
+  TrackObject,
+  TuneableTrackObject
+} from "./APIs/Tracks API";
 
-import {
-  PrivateUserObject,
-  PublicUserObject,
-  SavedAlbumObject
-} from "./APIs/User Profile API";
-
-import PlayerQueryTypeDefs, {
-  CurrentlyPlayingObject,
-  PlayHistoryObject,
-  DeviceObject,
-  DevicesObject
-} from "./APIs/Player API";
-
-import {
-  ContextObject,
-  CursorObject,
-  CursorPagingObject,
-  PagingObject
-} from "./APIs/apiMetadata";
-
-import {
-  CategoryObject,
-  ExternalUrlObject,
-  FollowersObject,
-  ImageObject
-} from "./typeDefs/commonMetadata";
-
+import { PrivateUserObject, PublicUserObject } from "./APIs/User Profile API";
 
 export default [
+  //Albums
   ...[AlbumObject, CopyrightObject, SimplifiedAlbumObject],
-  ...[ContextObject, CursorObject, CursorPagingObject, PagingObject],
+  // Artist
   ...[ArtistObject, SimplifiedArtistObject],
-  ...[AudioFeaturesObject, TuneableTrackObject],
-  ...[CategoryObject, ExternalUrlObject, FollowersObject, ImageObject],
+  // Browse
+  ...[RecommendationSeedObject, RecommendationsResponseObject, CategoryObject],
+  // Common Meta
+  ...[
+    ContextObject,
+    CursorObject,
+    CursorPagingObject,
+    ExternalIdObject,
+    ExternalUrlObject,
+    FollowersObject,
+    ImageObject,
+    PagingObject
+  ],
+  // Library
+  ...[SavedAlbumObject],
+  // Player
   ...[CurrentlyPlayingObject, DeviceObject, DevicesObject, PlayHistoryObject],
+  // Playlist
   ...[PlaylistObject, PlaylistTrackObject],
-  ...[PrivateUserObject, PublicUserObject, SavedAlbumObject],
-  ...[RecommendationSeedObject, RecommendationsResponseObject],
-  ...[ExternalIdObject, SimplifiedTrackObject, TrackObject],
-  ...[AlbumQueryTypeDefs, PlaylistQueryTypeDefs, PlayerQueryTypeDefs]
+  // Tracks
+  ...[
+    AudioFeaturesObject,
+    SimplifiedTrackObject,
+    TrackObject,
+    TuneableTrackObject
+  ],
+  // User
+  ...[PrivateUserObject, PublicUserObject],
+  // Queries and Mutations
+  ...[AlbumQueryTypeDefs, PlayerQueryTypeDefs, PlaylistQueryTypeDefs]
 ];

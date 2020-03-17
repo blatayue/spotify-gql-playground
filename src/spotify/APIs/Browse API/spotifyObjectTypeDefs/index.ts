@@ -1,3 +1,3 @@
-import { CategoryObject } from "./CategoryObject";
-import { RecommendationSeedObject } from "./RecommendationSeedObject";
-import { RecommendationsResponseObject } from "./RecommendationsResponseObject";
+export { CategoryObject } from "./CategoryObject";
+export { RecommendationSeedObject } from "./RecommendationSeedObject";
+export { RecommendationsResponseObject } from "./RecommendationsResponseObject";
