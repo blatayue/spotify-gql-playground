@@ -33,7 +33,7 @@ import PlayerQueryTypeDefs, {
   CurrentlyPlayingObject,
   DeviceObject,
   DevicesObject,
-  PlayHistoryObject
+  PlayHistoryObject,
 } from "./APIs/Player API";
 
 import PlaylistQueryTypeDefs, {

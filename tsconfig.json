@@ -1,14 +1,32 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "target": "ES2019",
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "removeComments": true,
     "preserveConstEnums": true,
     "inlineSourceMap": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
   },
-  "include": ["*", "src/gqlServer.ts", "src/spotifyContext.ts", "src/schema.ts"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": [
+    "*",
+    "src/gqlServer.ts",
+    "src/spotifyContext.ts",
+    "src/schema.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }

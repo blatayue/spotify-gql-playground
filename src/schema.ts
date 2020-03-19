@@ -15,7 +15,9 @@ import {
   getCurrentlyPlaying,
   setPlaybackRepeat,
   skipPlaybackNext,
-  skipPlaybackPrevious
+  skipPlaybackPrevious,
+  setPlaybackPause,
+  setPlaybackStartResume
 } from "./spotify/APIs/Player API";
 type spotifyCtx = { spotify: SpotifyWebApi };
 import typeThings from "./spotify";
@@ -50,10 +52,12 @@ const resolvers = {
     getAlbum,
     getAlbumTracks,
     getCurrentPlayback,
-    getCurrentlyPlaying,
+    getCurrentlyPlaying, 
     setPlaybackRepeat,
     skipPlaybackNext,
-    skipPlaybackPrevious
+    skipPlaybackPrevious,
+    setPlaybackPause,
+    setPlaybackStartResume
   },
   PagingItems: {
     __resolveType: (obj, ctx, info) => {
