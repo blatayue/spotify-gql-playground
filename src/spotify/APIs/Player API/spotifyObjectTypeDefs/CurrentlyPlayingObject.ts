@@ -2,7 +2,7 @@ import { gql } from "apollo-server-micro";
 
 // GET https://api.spotify.com/v1/me/player/currently-playing
 export const CurrentlyPlayingObject = gql`
-  type CurrentlyPlayingObject {
+  type CurrentlyPlaying {
     context: ContextObject
     timestamp: Float
     progress_ms: Int

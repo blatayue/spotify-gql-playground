@@ -2,8 +2,7 @@ import { gql, makeExecutableSchema } from "apollo-server-micro";
 import SpotifyWebApi from "spotify-web-api-node";
 import { playlistIdsToCamelot } from "./spotifyUtils";
 
-import { addTracksToPlaylist 
-} from "./spotify/APIs/Playlists API";
+import { addTracksToPlaylist } from "./spotify/APIs/Playlists API";
 
 import {
   getAlbum,
@@ -11,7 +10,13 @@ import {
   getMultipleAlbums
 } from "./spotify/APIs/Albums API";
 
-import { getCurrentlyPlaying } from "./spotify/APIs/Player API";
+import {
+  getCurrentPlayback,
+  getCurrentlyPlaying,
+  setPlaybackRepeat,
+  skipPlaybackNext,
+  skipPlaybackPrevious
+} from "./spotify/APIs/Player API";
 type spotifyCtx = { spotify: SpotifyWebApi };
 import typeThings from "./spotify";
 import { stringify } from "qs";
@@ -44,7 +49,11 @@ const resolvers = {
     getMultipleAlbums,
     getAlbum,
     getAlbumTracks,
-    getCurrentlyPlaying
+    getCurrentPlayback,
+    getCurrentlyPlaying,
+    setPlaybackRepeat,
+    skipPlaybackNext,
+    skipPlaybackPrevious
   },
   PagingItems: {
     __resolveType: (obj, ctx, info) => {

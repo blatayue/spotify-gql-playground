@@ -1,3 +1,6 @@
+// Exporting the entire spotify APIs object types and queries/mutation types into a single array
+// Default imports are the queries/mutations, named exports are individual objects
+
 import AlbumQueryTypeDefs, {
   AlbumObject,
   CopyrightObject,
@@ -26,6 +29,7 @@ import {
 import { SavedAlbumObject } from "./APIs/Library API";
 
 import PlayerQueryTypeDefs, {
+  CurrentPlaybackObject,
   CurrentlyPlayingObject,
   DeviceObject,
   DevicesObject,
@@ -34,7 +38,8 @@ import PlayerQueryTypeDefs, {
 
 import PlaylistQueryTypeDefs, {
   PlaylistObject,
-  PlaylistTrackObject
+  PlaylistTrackObject,
+  addTrackSnaphot
 } from "./APIs/Playlists API";
 
 import {
@@ -67,9 +72,15 @@ export default [
   // Library
   ...[SavedAlbumObject],
   // Player
-  ...[CurrentlyPlayingObject, DeviceObject, DevicesObject, PlayHistoryObject],
+  ...[
+    CurrentPlaybackObject,
+    CurrentlyPlayingObject,
+    DeviceObject,
+    DevicesObject,
+    PlayHistoryObject
+  ],
   // Playlist
-  ...[PlaylistObject, PlaylistTrackObject],
+  ...[addTrackSnaphot, PlaylistObject, PlaylistTrackObject],
   // Tracks
   ...[
     AudioFeaturesObject,
