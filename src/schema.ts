@@ -10,15 +10,7 @@ import {
   getMultipleAlbums
 } from "./spotify/APIs/Albums API";
 
-import {
-  getCurrentPlayback,
-  getCurrentlyPlaying,
-  setPlaybackRepeat,
-  skipPlaybackNext,
-  skipPlaybackPrevious,
-  setPlaybackPause,
-  setPlaybackStartResume
-} from "./spotify/APIs/Player API";
+import { PlayerResolvers } from "./spotify/APIs/Player API";
 type spotifyCtx = { spotify: SpotifyWebApi };
 import typeThings from "./spotify";
 import { stringify } from "qs";
@@ -51,13 +43,7 @@ const resolvers = {
     getMultipleAlbums,
     getAlbum,
     getAlbumTracks,
-    getCurrentPlayback,
-    getCurrentlyPlaying, 
-    setPlaybackRepeat,
-    skipPlaybackNext,
-    skipPlaybackPrevious,
-    setPlaybackPause,
-    setPlaybackStartResume
+    ...PlayerResolvers
   },
   PagingItems: {
     __resolveType: (obj, ctx, info) => {

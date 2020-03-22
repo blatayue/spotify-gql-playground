@@ -42,19 +42,13 @@ export const getCurrentlyPlaying: currentlyPlaying = async (
     { market },
     { arrayFormat: "comma", addQueryPrefix: true }
   );
-    refetch.head(`https://api.spotify.com/v1/me/player/currently-playing${qstring}`,
-    {
-      method: "GET",
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
-    })
-  const resp = await refetch(
+  const resp = refetch(
     `https://api.spotify.com/v1/me/player/currently-playing${qstring}`,
     {
       method: "GET",
       headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
     }
   );
-  resp
     try {
       return await resp.json()
     }

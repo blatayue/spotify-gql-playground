@@ -3,7 +3,7 @@ import {gql} from 'apollo-server-micro'
 export const CurrentPlaybackObject = gql`
     type CurrentPlayback {
     timestamp: Float,
-    device: DeviceObject,
+    device: Device,
     progress_ms: Float,
     is_playing: Boolean,
     currently_playing_type: String,

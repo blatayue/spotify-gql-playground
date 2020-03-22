@@ -17,6 +17,7 @@ export default gql`
     skipPlaybackNext(device_id: String): Boolean
     skipPlaybackPrevious(device_id: String): Boolean
     setPlaybackPause(device_id: String): Boolean
+    addToQueue(device_id: String, uri: String): Boolean
     setPlaybackStartResume(
       device_id: String
       context_uri: String
@@ -24,5 +25,7 @@ export default gql`
       position_ms: Int
       offset: offset
     ): Boolean
+    getDevices: Devices
+    seekPlayer(device_id: String, position_ms: Int, percent: Float): Boolean
   }
 `;

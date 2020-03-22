@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-micro";
 
 export const DeviceObject = gql`
-  type DeviceObject {
+  type Device {
     id: String
     is_active: Boolean
     is_private_session: Boolean
