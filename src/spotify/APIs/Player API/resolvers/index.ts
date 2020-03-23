@@ -1,8 +1,8 @@
 export { getCurrentlyPlaying } from "./CurrentlyPlaying";
 export { getCurrentPlayback } from "./CurrentPlayback";
 export { setPlaybackRepeat } from "./SetPlaybackRepeat";
-export { skipPlaybackNext } from "./SkipPlaybackNext";
-export { skipPlaybackPrevious } from "./SkipPlaybackPrevious";
+export { skipPlaybackNext } from "./skipPlaybackNext";
+export { skipPlaybackPrevious } from "./skipPlaybackPrevious";
 export { setPlaybackPause } from "./setPlaybackPause";
 export { setPlaybackStartResume } from "./setPlaybackStartResume";
 export { getDevices } from "./getDevices";
