@@ -28,5 +28,6 @@ export default gql`
     getDevices: Devices
     seekPlayer(device_id: String, position_ms: Int, percent: Float): Boolean
     setVolume(device_id: String, volume_percent: Int): Boolean
+    transferPlayback(device_ids: [String], play: Boolean): Boolean
   }
 `;

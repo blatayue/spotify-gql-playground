@@ -9,3 +9,4 @@ export { getDevices } from "./getDevices";
 export { addToQueue } from "./addItemToEndOfQueue";
 export { seekPlayer } from "./seekPlayer";
 export { setVolume } from "./setVolume";
+export { transferPlayback } from "./transferPlayback";
