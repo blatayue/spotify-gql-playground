@@ -9,7 +9,7 @@ import AlbumQueryTypeDefs, {
 
 import { ArtistObject, SimplifiedArtistObject } from "./APIs/Artists API";
 
-import {
+import BrowseQueryTypeDefs, {
   RecommendationSeedObject,
   RecommendationsResponseObject,
   CategoryObject
@@ -33,7 +33,7 @@ import PlayerQueryTypeDefs, {
   CurrentlyPlayingObject,
   DeviceObject,
   DevicesObject,
-  PlayHistoryObject,
+  PlayHistoryObject
 } from "./APIs/Player API";
 
 import PlaylistQueryTypeDefs, {
@@ -91,5 +91,10 @@ export default [
   // User
   ...[PrivateUserObject, PublicUserObject],
   // Queries and Mutations
-  ...[AlbumQueryTypeDefs, PlayerQueryTypeDefs, PlaylistQueryTypeDefs]
+  ...[
+    AlbumQueryTypeDefs,
+    BrowseQueryTypeDefs,
+    PlayerQueryTypeDefs,
+    PlaylistQueryTypeDefs
+  ]
 ];

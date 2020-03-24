@@ -10,6 +10,8 @@ import {
   getMultipleAlbums
 } from "./spotify/APIs/Albums API";
 
+import { BrowseResolvers } from "./spotify/APIs/Browse API";
+
 import { PlayerResolvers } from "./spotify/APIs/Player API";
 type spotifyCtx = { spotify: SpotifyWebApi };
 import typeThings from "./spotify";
@@ -43,11 +45,13 @@ const resolvers = {
     getMultipleAlbums,
     getAlbum,
     getAlbumTracks,
-    ...PlayerResolvers
+    ...PlayerResolvers,
+    ...BrowseResolvers
   },
   PagingItems: {
     __resolveType: (obj, ctx, info) => {
       if (obj.played_at) return "PlayHistoryObject";
+      if (obj.icons) return "CategoryObject";
       switch (obj.type) {
         case "track": {
           return "SimplifiedTrackObject";
