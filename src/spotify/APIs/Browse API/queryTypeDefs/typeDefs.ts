@@ -7,14 +7,24 @@ export default gql`
       locale: String
       limit: Int
       offset: Int
-    ): categoryPagingResponse
+    ): CategoryPagingResponse
     getCategory(
       category_id: String
       country: String
       locale: String
     ): CategoryObject
+    getCategoryPlaylists(
+      category_id: String
+      country: String
+      limit: Int
+      offset: Int
+    ): PlaylistPagingResponse
   }
-  type categoryPagingResponse {
+
+  type CategoryPagingResponse {
     categories: PagingObject
+  }
+  type PlaylistPagingResponse {
+    playlists: PagingObject
   }
 `;
