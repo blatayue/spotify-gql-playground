@@ -8,9 +8,13 @@ export default gql`
       limit: Int
       offset: Int
     ): categoryPagingResponse
+    getCategory(
+      category_id: String
+      country: String
+      locale: String
+    ): CategoryObject
   }
-
   type categoryPagingResponse {
-      categories: PagingObject
+    categories: PagingObject
   }
 `;
