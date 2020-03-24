@@ -47,9 +47,16 @@ const resolvers = {
   },
   PagingItems: {
     __resolveType: (obj, ctx, info) => {
+      if (obj.played_at) return "PlayHistoryObject";
       switch (obj.type) {
         case "track": {
           return "SimplifiedTrackObject";
+        }
+        case "album": {
+          return "SimplifiedAlbumObject";
+        }
+        case "playlist": {
+          return "PlaylistObject";
         }
       }
     }
