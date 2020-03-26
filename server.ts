@@ -1,11 +1,10 @@
 import fetch from "node-fetch";
 import cookie from "cookie";
 import { sign } from "jsonwebtoken";
-import moment from 'moment'; // TODO date-fns
+import { addDays } from "date-fns";
 
-import { NowRequest, NowResponse } from '@now/node'
+import { NowRequest, NowResponse } from "@now/node";
 import querystring from "querystring";
-
 
 // This serverless func handles the oauth2 access token flow
 // It is called with my custom url from spotify and the corersponding redirect
@@ -32,7 +31,10 @@ const fetchOpts = ({ code, headers }) => ({
   })
 });
 
-const sendToPlaygroundWithCookie = (req: NowRequest, res: NowResponse) => spotifyResponse => {
+const sendToPlaygroundWithCookie = (
+  req: NowRequest,
+  res: NowResponse
+) => spotifyResponse => {
   if (spotifyResponse.error) {
     // retry auth
     console.error(spotifyResponse.error);
@@ -41,8 +43,7 @@ const sendToPlaygroundWithCookie = (req: NowRequest, res: NowResponse) => spotif
       // Could cause infinite ping-pong redirects. Maybe change - TODO
       `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/`
     );
-    res.status(301).end()
-
+    res.status(301).end();
   } else {
     // redirect to playground
     res.setHeader(
@@ -52,7 +53,7 @@ const sendToPlaygroundWithCookie = (req: NowRequest, res: NowResponse) => spotif
         sign(spotifyResponse, process.env.jwt_secret), // make jwt
         {
           // expires tomorrow utc
-          expires: new Date(moment.utc().add(1, 'h').format("MMM DD, YYYY HH:MM")),
+          expires: addDays(new Date(), 1),
           path: "/"
         }
       )
@@ -62,18 +63,18 @@ const sendToPlaygroundWithCookie = (req: NowRequest, res: NowResponse) => spotif
       // Same old trick, still as effective
       `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/graphql`
     );
-    res.status(301).end()
+    res.status(301).end();
   }
 };
 
-// TODO: Replace with Algebra
+// TODO: tidy up somehow
 const handler = (req: NowRequest, res: NowResponse) => {
   const opts = fetchOpts({ code: req.query.code, headers: req.headers });
   fetch(spotifyTokenEndpoint, opts)
     .then(async tokenRes => await tokenRes.json())
     .then(sendToPlaygroundWithCookie(req, res))
     .catch(err => {
-      res.status(500).send(err)
+      res.status(500).send(err);
     });
 };
 
