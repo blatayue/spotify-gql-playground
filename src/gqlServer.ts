@@ -4,12 +4,6 @@ import { schema } from "./schema";
 
 const apolloServer = new ApolloServer({
   schema,
-  playground: {
-    settings: {
-      // "schema.polling.enable": false, // I wish this worked
-      "request.credentials": "include",
-    }
-  },
   tracing: true,
   introspection: true,
   context: spotifyContext

@@ -22,15 +22,13 @@ type jwtPayloadSpotify = {
   scope: string;
 };
 export const spotifyContext = async ({ req }) => {
-  const authCookie = req.headers?.cookie ?? ""; // if no cookie, empty string
-  const cookies = cookie.parse(authCookie);
-  const spotify_jwt = cookies?.spotify_auth;
-  console.log("includes jwt:", !!spotify_jwt);
+  const tokenHeader = req.headers?.token ?? "";
+  console.log("includes jwt:", !!tokenHeader);
   // If cookie spotify_auth exists, decode jwt and use to auth API in context 
-  if (cookies?.spotify_auth) {
+  if (tokenHeader !== "") {
     try {
       const token: jwtPayloadSpotify = decode(
-        spotify_jwt,
+        tokenHeader,
         process.env.jwt_secret,
         false,
         "HS256"

@@ -47,21 +47,9 @@ const sendToPlaygroundWithCookie = (
   } else {
     // redirect to playground
     res.setHeader(
-      "Set-Cookie",
-      cookie.serialize(
-        "spotify_auth",
-        sign(spotifyResponse, process.env.jwt_secret), // make jwt
-        {
-          // expires tomorrow utc
-          expires: addDays(new Date(), 1),
-          path: "/"
-        }
-      )
-    );
-    res.setHeader(
       "Location",
       // Same old trick, still as effective
-      `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/graphql`
+      `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/playground?token=${sign(spotifyResponse, process.env.jwt_secret)}`
     );
     res.status(301).end();
   }
