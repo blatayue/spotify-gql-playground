@@ -1,4 +1,3 @@
-import cookie from "cookie";
 import { decode } from "jwt-simple";
 import SpotifyWebApi from "spotify-web-api-node";
 
@@ -11,10 +10,6 @@ const withKnownTokens = ({ token }: { token: jwtPayloadSpotify }) => ({
   accessToken: token.access_token,
   refreshToken: token.refresh_token
 });
-const withRefreshAndNewAccessToken = ({ token, new_access_token }) => ({
-  refreshToken: token.refresh_token,
-  accessToken: new_access_token
-});
 
 type jwtPayloadSpotify = {
   access_token: string;
@@ -22,13 +17,13 @@ type jwtPayloadSpotify = {
   scope: string;
 };
 export const spotifyContext = async ({ req }) => {
-  const tokenHeader = req.headers?.token ?? "";
+  const tokenHeader = req.headers?.authorization ?? "";
   console.log("includes jwt:", !!tokenHeader);
-  // If cookie spotify_auth exists, decode jwt and use to auth API in context 
+  // If auth header exists, decode jwt and use to auth API in context 
   if (tokenHeader !== "") {
     try {
       const token: jwtPayloadSpotify = decode(
-        tokenHeader,
+        tokenHeader.split(" ")[1],
         process.env.jwt_secret,
         false,
         "HS256"
@@ -44,15 +39,14 @@ export const spotifyContext = async ({ req }) => {
     catch (e) {
       if (e === "Token expired") {
         console.log(e);
-        return; // will cause runtime error bc I don't verify spotify is accessible on ctx obj in resolvers
+        return; // will cause api dependents to return null for graphql call
         // TODO - return expired token/create response for unauthed calls
       }
     }
   } 
-  // At this point, the cookie probably doesn't exist, Should probably figure out how to use a serverless func to just redirect
-  // Would make this a little simpler and more intutitive for the end users
-  else if (!req.headers?.cookie) {
-    console.log(`reached playground without auth cookie from ${req.headers["x-real-ip"]}`);
+  // At this point, the header probably doesn't exist
+  else if (!req.headers?.authorization) {
+    console.log(`reached playground without auth from ${req.headers["x-real-ip"]}`);
     return { spotify: new SpotifyWebApi({ ...clientSecretAndId }) }; // no user tokens, but still api access
   }
 };

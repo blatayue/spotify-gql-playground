@@ -1,7 +1,5 @@
 import fetch from "node-fetch";
-import cookie from "cookie";
 import { sign } from "jsonwebtoken";
-import { addDays } from "date-fns";
 
 import { NowRequest, NowResponse } from "@now/node";
 import querystring from "querystring";
@@ -9,7 +7,7 @@ import querystring from "querystring";
 // This serverless func handles the oauth2 access token flow
 // It is called with my custom url from spotify and the corersponding redirect
 // It handles the code exchange for an access token and refresh token
-// It signs the token response as a jwt and sets it as a cookie
+// It signs the token response as a jwt and sends it to the frontend playground
 // It finally redirects to the graphql playground
 
 const spotifyTokenEndpoint = "https://accounts.spotify.com/api/token";
@@ -31,7 +29,7 @@ const fetchOpts = ({ code, headers }) => ({
   })
 });
 
-const sendToPlaygroundWithCookie = (
+const sendToPlaygroundWithToken = (
   req: NowRequest,
   res: NowResponse
 ) => spotifyResponse => {
@@ -41,15 +39,15 @@ const sendToPlaygroundWithCookie = (
     res.setHeader(
       "Location",
       // Could cause infinite ping-pong redirects. Maybe change - TODO
-      `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/`
+      `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/auth`
     );
     res.status(301).end();
   } else {
     // redirect to playground
     res.setHeader(
       "Location",
-      // Same old trick, still as effective
-      `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/playground?token=${sign(spotifyResponse, process.env.jwt_secret)}`
+      // frontend graphql playground is static and stable
+      `https://spotify-graphql-playground.blatayuze.now.sh?token=${sign(spotifyResponse, process.env.jwt_secret)}`
     );
     res.status(301).end();
   }
@@ -60,7 +58,7 @@ const handler = (req: NowRequest, res: NowResponse) => {
   const opts = fetchOpts({ code: req.query.code, headers: req.headers });
   fetch(spotifyTokenEndpoint, opts)
     .then(async tokenRes => await tokenRes.json())
-    .then(sendToPlaygroundWithCookie(req, res))
+    .then(sendToPlaygroundWithToken(req, res))
     .catch(err => {
       res.status(500).send(err);
     });

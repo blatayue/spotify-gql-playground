@@ -34,8 +34,7 @@ export const allScopesStr = Object.values(allScopes).reduce(
 
 
 const handler = (req: NowRequest, res: NowResponse) => {
-  console.log(`request from: ${req.headers["x-real-ip"]}`);
-  console.log(allScopesStr)
+  console.log(`request from: ${req.headers["x-real-ip"]} for oauth2 link`);
   const qs = querystring.stringify({
     response_type: "code",
     client_id: process.env.spotify_client_id,

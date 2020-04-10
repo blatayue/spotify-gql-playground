@@ -11,10 +11,6 @@
 
   "builds": [
     {
-      "src": "/public/*.html",
-      "use": "@now/static"
-    },
-    {
       "src": "*.ts",
       "use": "@now/node"
     },
@@ -25,28 +21,27 @@
   ],
   "routes": [
     {
-      "src": "/playground/*",
-      "dest": "/public/playground.html"
+      "src": "/",
+      "dest": "/src/authRedirect.ts"
+    },
+    {
+      "src": "/auth",
+      "dest": "/src/authRedirect.ts"
     },
     {
       "src": "/callback/*",
       "dest": "server.ts"
     },
     {
-      "src": "/graphql/*",
+      "src": "/graphql",
+      "methods": ["OPTIONS", "POST"],
       "headers": {
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Headers": "authorization,content-type,x-apollo-tracing"
       },
+      "status": 200,
       "dest": "/src/gqlServer.ts"
-    },
-    {
-      "src": "/",
-      "dest": "/src/authRedirect.ts",
-      "headers": {
-        "Access-Control-Allow-Origin": "*"
-      }
     }
   ]
 }
