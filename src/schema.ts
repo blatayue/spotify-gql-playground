@@ -4,15 +4,11 @@ import { playlistIdsToCamelot } from "./spotifyUtils";
 
 import { addTracksToPlaylist } from "./spotify/APIs/Playlists API";
 
-import {
-  getAlbum,
-  getAlbumTracks,
-  getMultipleAlbums
-} from "./spotify/APIs/Albums API";
-
+import { AlbumResolvers } from "./spotify/APIs/Albums API";
 import { BrowseResolvers } from "./spotify/APIs/Browse API";
-
 import { PlayerResolvers } from "./spotify/APIs/Player API";
+import { TrackResolvers } from "./spotify/APIs/Tracks API";
+
 type spotifyCtx = { spotify: SpotifyWebApi };
 import typeThings from "./spotify";
 import { stringify } from "qs";
@@ -23,7 +19,7 @@ const authLinkQS = stringify(
     response_type: "code",
     client_id: "be1ce429ce1e4c5182dfd81abc83ff0e",
     scope: allScopesStr,
-    redirect_uri: "http://localhost:3000/callback/"
+    redirect_uri: "http://localhost:3000/callback/",
   },
   { arrayFormat: "comma", addQueryPrefix: true }
 );
@@ -37,16 +33,15 @@ const resolvers = {
     getCamelotFromPlaylist: async (_, args, context: spotifyCtx) =>
       playlistIdsToCamelot({
         spotify: context.spotify,
-        playlists: [args.id]
-      }).then(camelot => camelot[0]),
+        playlists: [args.id],
+      }).then((camelot) => camelot[0]),
     getAccessToken: async (_, __, context: spotifyCtx) =>
       context.spotify.getAccessToken(),
     addTracksToPlaylist,
-    getMultipleAlbums,
-    getAlbum,
-    getAlbumTracks,
+    ...AlbumResolvers,
     ...PlayerResolvers,
-    ...BrowseResolvers
+    ...BrowseResolvers,
+    ...TrackResolvers
   },
   PagingItems: {
     __resolveType: (obj, ctx, info) => {
@@ -63,8 +58,8 @@ const resolvers = {
           return "PlaylistObject";
         }
       }
-    }
-  }
+    },
+  },
 };
 
 const typeDefs = gql`
@@ -87,5 +82,5 @@ const typeDefs = gql`
 `;
 export const schema = makeExecutableSchema({
   typeDefs: [typeDefs, ...typeThings],
-  resolvers
+  resolvers,
 });

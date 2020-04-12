@@ -4,7 +4,7 @@
 import AlbumQueryTypeDefs, {
   AlbumObject,
   CopyrightObject,
-  SimplifiedAlbumObject
+  SimplifiedAlbumObject,
 } from "./APIs/Albums API";
 
 import { ArtistObject, SimplifiedArtistObject } from "./APIs/Artists API";
@@ -12,7 +12,7 @@ import { ArtistObject, SimplifiedArtistObject } from "./APIs/Artists API";
 import BrowseQueryTypeDefs, {
   RecommendationSeedObject,
   RecommendationsResponseObject,
-  CategoryObject
+  CategoryObject,
 } from "./APIs/Browse API";
 
 import {
@@ -23,7 +23,7 @@ import {
   ExternalUrlObject,
   FollowersObject,
   ImageObject,
-  PagingObject
+  PagingObject,
 } from "./APIs/Common Metadata API";
 
 import { SavedAlbumObject } from "./APIs/Library API";
@@ -33,20 +33,21 @@ import PlayerQueryTypeDefs, {
   CurrentlyPlayingObject,
   DeviceObject,
   DevicesObject,
-  PlayHistoryObject
+  PlayHistoryObject,
 } from "./APIs/Player API";
 
 import PlaylistQueryTypeDefs, {
   PlaylistObject,
   PlaylistTrackObject,
-  addTrackSnaphot
+  addTrackSnaphot,
 } from "./APIs/Playlists API";
 
-import {
+import TracksQueryTypeDefs, {
   AudioFeaturesObject,
   SimplifiedTrackObject,
   TrackObject,
-  TuneableTrackObject
+  TuneableTrackObject,
+  AudioAnalysisObject
 } from "./APIs/Tracks API";
 
 import { PrivateUserObject, PublicUserObject } from "./APIs/User Profile API";
@@ -67,7 +68,7 @@ export default [
     ExternalUrlObject,
     FollowersObject,
     ImageObject,
-    PagingObject
+    PagingObject,
   ],
   // Library
   ...[SavedAlbumObject],
@@ -77,16 +78,17 @@ export default [
     CurrentlyPlayingObject,
     DeviceObject,
     DevicesObject,
-    PlayHistoryObject
+    PlayHistoryObject,
   ],
   // Playlist
   ...[addTrackSnaphot, PlaylistObject, PlaylistTrackObject],
   // Tracks
   ...[
+    AudioAnalysisObject,
     AudioFeaturesObject,
     SimplifiedTrackObject,
     TrackObject,
-    TuneableTrackObject
+    TuneableTrackObject,
   ],
   // User
   ...[PrivateUserObject, PublicUserObject],
@@ -95,6 +97,7 @@ export default [
     AlbumQueryTypeDefs,
     BrowseQueryTypeDefs,
     PlayerQueryTypeDefs,
-    PlaylistQueryTypeDefs
-  ]
+    PlaylistQueryTypeDefs,
+    TracksQueryTypeDefs
+  ],
 ];

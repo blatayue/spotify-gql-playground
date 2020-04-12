@@ -1,5 +1,5 @@
 // resolvers
-export * from "./resolvers";
+export * as AlbumResolvers from "./resolvers";
 // response TypeDefs
 export * from './spotifyObjectTypeDefs'
 // query TypeDefs
