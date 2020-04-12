@@ -19,6 +19,12 @@ export default gql`
       limit: Int
       offset: Int
     ): PlaylistPagingResponse
+    getNewReleases(
+      category_id: String
+      country: String
+      limit: Int
+      offset: Int
+    ): AlbumtPagingResponse
   }
 
   type CategoryPagingResponse {
@@ -26,5 +32,8 @@ export default gql`
   }
   type PlaylistPagingResponse {
     playlists: PagingObject
+  }
+  type AlbumtPagingResponse {
+    albums: PagingObject
   }
 `;
