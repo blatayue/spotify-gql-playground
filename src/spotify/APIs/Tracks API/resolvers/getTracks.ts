@@ -25,7 +25,7 @@ type getTracks = (
   parent: any, // query root
   args: {
     ids: string[];
-    market: string;
+    market?: string;
   },
   context: any
 ) => Promise<object>;
