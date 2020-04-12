@@ -5,6 +5,7 @@ export default gql`
     getAudioFeatures(id: String): AudioFeaturesObject
     getAudioFeaturesSeveralTracks(ids: [String]): SeveralAudioFeaturesTracks
     getAudioAnalysis(id: String): AudioAnalysisObject
+    getTrack(id: String, market: String): TrackObject
   }
   type SeveralAudioFeaturesTracks {
     audio_features: [AudioFeaturesObject]
