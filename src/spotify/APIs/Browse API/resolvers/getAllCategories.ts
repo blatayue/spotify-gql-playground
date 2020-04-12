@@ -43,8 +43,8 @@ type getAllCategories = (
   args: {
     country?: string;
     locale?: string;
-    limit?: string;
-    offset?: string;
+    limit?: number;
+    offset?: number;
   },
   context: any
 ) => Promise<object>;
