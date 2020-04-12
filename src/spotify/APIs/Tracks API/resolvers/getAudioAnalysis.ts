@@ -24,7 +24,7 @@ Response: On success, the HTTP status code in the response header is 200 OK
 type getAudioAnalysis = (
   parent: any, // query root
   args: {
-    id
+    id: string
   },
   context: any
 ) => Promise<object>;
