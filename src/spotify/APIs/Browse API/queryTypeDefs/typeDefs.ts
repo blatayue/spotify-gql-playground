@@ -25,8 +25,13 @@ export default gql`
       limit: Int
       offset: Int
     ): AlbumtPagingResponse
+    
+    getRecommendationGenres: RecommendationGenres
   }
 
+  type RecommendationGenres {
+    genres: [String]
+  }
   type CategoryPagingResponse {
     categories: PagingObject
   }
