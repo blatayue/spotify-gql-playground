@@ -27,6 +27,17 @@ export default gql`
     ): AlbumtPagingResponse
     
     getRecommendationGenres: RecommendationGenres
+
+    getAllFeaturedPlaylists(country: String
+      locale: String
+      timestamp: String
+      limit: Int
+      offset: Int): FeaturedPlaylists
+  }
+
+  type FeaturedPlaylists {
+    message: String
+    playlists: PagingObject
   }
 
   type RecommendationGenres {
