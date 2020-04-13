@@ -60,6 +60,48 @@ const resolvers = {
       }
     },
   },
+  Genre: {
+    // So spotify uses kebab-case and graphql only supports snake for props and enums
+    // TODO - Document this oddity somewhere more noticeable
+    alt_rock: "alt-rock",
+    black_metal: "black-metal",
+    chicago_house: "chicago-house",
+    death_metal: "death-metal",
+    deep_house: "deep-house",
+    detroit_techno: "detroit-techno",
+    drum_and_bass: "drum-and-bass",
+    hard_rock: "hard-rock",
+    heavy_metal: "heavy-metal",
+    hip_hop: "hip-hop",
+    honky_tonk: "honky-tonk",
+    indie_pop: "indie-pop",
+    j_dance: "j-dance",
+    j_idol: "j-idol",
+    j_pop: "j-pop",
+    j_rock: "j-rock",
+    k_pop: "k-pop",
+    metal_misc: "metal-misc",
+    minimal_techno: "minimal-techno",
+    new_age: "new-age",
+    new_release: "new-release",
+    philippines_opm: "philippines-opm",
+    pop_film: "pop-film",
+    post_dubstep: "post-dubstep",
+    power_pop: "power-pop",
+    progressive_house: "progressive-house",
+    psych_rock: "psych-rock",
+    punk_rock: "punk-rock",
+    r_n_b: "r-n-b",
+    rainy_day: "rainy-day",
+    road_trip: "road-trip",
+    rock_n_roll: "rock-n-roll",
+    show_tunes: "show-tunes",
+    singer_songwriter: "singer-songwriter",
+    synth_pop: "synth-pop",
+    trip_hop: "trip-hop",
+    work_out: "work-out",
+    world_music: "world-music",
+  }
 };
 
 const typeDefs = gql`

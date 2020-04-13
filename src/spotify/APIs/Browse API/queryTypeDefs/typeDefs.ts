@@ -25,14 +25,24 @@ export default gql`
       limit: Int
       offset: Int
     ): AlbumtPagingResponse
-    
+
     getRecommendationGenres: RecommendationGenres
 
-    getAllFeaturedPlaylists(country: String
+    getAllFeaturedPlaylists(
+      country: String
       locale: String
       timestamp: String
       limit: Int
-      offset: Int): FeaturedPlaylists
+      offset: Int
+    ): FeaturedPlaylists
+
+    getRecommendations(
+      paging: Paging
+      seeds: Seeds
+      max_tuneables: Tuneables
+      min_tuneables: Tuneables
+      target_tuneables: Tuneables
+    ): RecommendationsResponseObject
   }
 
   type FeaturedPlaylists {

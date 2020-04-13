@@ -13,6 +13,8 @@ import BrowseQueryTypeDefs, {
   RecommendationSeedObject,
   RecommendationsResponseObject,
   CategoryObject,
+  RecommendationInput,
+  Genre,
 } from "./APIs/Browse API";
 
 import {
@@ -47,18 +49,25 @@ import TracksQueryTypeDefs, {
   SimplifiedTrackObject,
   TrackObject,
   TuneableTrackObject,
-  AudioAnalysisObject
+  AudioAnalysisObject,
 } from "./APIs/Tracks API";
 
 import { PrivateUserObject, PublicUserObject } from "./APIs/User Profile API";
 
 export default [
+  // Inputs and extended types first
+  ...[RecommendationInput],
   //Albums
   ...[AlbumObject, CopyrightObject, SimplifiedAlbumObject],
   // Artist
   ...[ArtistObject, SimplifiedArtistObject],
   // Browse
-  ...[RecommendationSeedObject, RecommendationsResponseObject, CategoryObject],
+  ...[
+    RecommendationSeedObject,
+    RecommendationsResponseObject,
+    CategoryObject,
+    Genre,
+  ],
   // Common Meta
   ...[
     ContextObject,
@@ -98,6 +107,6 @@ export default [
     BrowseQueryTypeDefs,
     PlayerQueryTypeDefs,
     PlaylistQueryTypeDefs,
-    TracksQueryTypeDefs
+    TracksQueryTypeDefs,
   ],
 ];
