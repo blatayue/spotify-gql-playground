@@ -3,7 +3,7 @@ import { gql } from "apollo-server-micro";
 // Get All Categories: the response body contains an object with a categories field, with an array of category objects (wrapped in a paging object) in JSON format.
 // Get a Category's Playlists: the response body contains an array of simplified playlist objects (wrapped in a paging object) in JSON format.
 // Get All New Releases: The albums object contains an array of simplified album objects (wrapped in a paging object) in JSON format.
-// TODO: Get All Featured Playlists: The playlists object contains an array of simplified playlist objects (wrapped in a paging object) in JSON format.
+// Get All Featured Playlists: The playlists object contains an array of simplified playlist objects (wrapped in a paging object) in JSON format.
 // Playlists tracks:  the response body contains an array of playlist track objects (wrapped in a paging object) in JSON format
 // Current User's Playlists: the response body contains an array of simplified playlist objects (wrapped in a paging object) in JSON format.
 // List of a User's Playlists:  the response body contains an array of simplified playlist objects (wrapped in a paging object)
