@@ -1,1 +1,1 @@
-export {addTracksToPlaylist} from './AddTracksToAPlaylist'
+export {addTracksToPlaylist} from './addTracksToAPlaylist'
