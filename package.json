@@ -14,16 +14,13 @@
   },
   "dependencies": {
     "@hazelee/refetch": "^1.0.0",
-    "@types/qs": "^6.9.1",
-    "apollo-server-micro": "^2.9.6",
+    "apollo-server-micro": "^2.12.0",
     "date-fns": "^2.11.0",
+    "graphql": "^15.0.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",
-    "micro": "^9.3.4",
-    "micro-query": "^0.3.0",
     "node-fetch": "^2.6.0",
     "qs": "^6.9.3",
-    "query-string": "^6.11.1",
     "spotify-web-api-node": "^4.0.0",
     "typescript": "^3.8.3"
   },
@@ -33,6 +30,7 @@
     "@types/micro": "^7.3.3",
     "@types/node": "^12.7.12",
     "@types/node-fetch": "^2.5.2",
+    "@types/qs": "^6.9.1",
     "@types/spotify-web-api-node": "^4.0.1"
   }
 }
