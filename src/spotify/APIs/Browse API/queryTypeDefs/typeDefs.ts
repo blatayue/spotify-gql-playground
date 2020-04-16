@@ -47,19 +47,19 @@ export default gql`
 
   type FeaturedPlaylists {
     message: String
-    playlists: PagingObject
+    playlists: PagingObject # PlaylistObject
   }
 
   type RecommendationGenres {
     genres: [String]
   }
   type CategoryPagingResponse {
-    categories: PagingObject
+    categories: PagingObject # CategoryObject
   }
   type PlaylistPagingResponse {
-    playlists: PagingObject
+    playlists: PagingObject # PlaylistObject
   }
   type AlbumtPagingResponse {
-    albums: PagingObject
+    albums: PagingObject # SimplifiedAlbumTrack
   }
 `;
