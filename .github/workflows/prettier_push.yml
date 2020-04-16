@@ -13,10 +13,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12
-    - name: run prettier on src folder
+    - name: Run prettier on src folder
       run: npx prettier --write "src/**/*.ts"
     - name: Pushing back to master
-      uses: mikeal/publish-to-github-action@master 
+      uses: blatayue/publish-to-github-action@0.1-alpha
+      with:
+        commit_message: Prettified Code!
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
