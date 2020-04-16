@@ -14,7 +14,7 @@ jobs:
       with:
         fetch-depth: 1 # history might get messy
     - name: Prettify the TS Code
-      uses: blatayue/prettier_action@0.3-alpha
+      uses: blatayue/prettier_action@0.4-alpha
       with:
         prettier_options: "--write src/**/*.ts"
         branch: master
