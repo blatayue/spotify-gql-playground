@@ -1,1 +1,2 @@
-export {addTracksToPlaylist} from './addTracksToAPlaylist'
+export { addTracksToPlaylist } from "./addTracksToAPlaylist";
+export { getUserPlaylists } from "./getUserPlaylists";

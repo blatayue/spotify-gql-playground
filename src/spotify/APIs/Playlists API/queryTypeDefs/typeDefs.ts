@@ -7,5 +7,7 @@ export default gql`
       playlist_id: String
       position: Int
     ): addTracksToPlaylistRes
+    getUserPlaylists(user_id: String, limit: Int, offset: Int): PagingObject
+    # UserPlaylistObject
   }
 `;

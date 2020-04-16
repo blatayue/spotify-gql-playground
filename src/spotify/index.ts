@@ -41,6 +41,8 @@ import PlayerQueryTypeDefs, {
 import PlaylistQueryTypeDefs, {
   PlaylistObject,
   PlaylistTrackObject,
+  UserPlaylistObject,
+  UserPlaylistTrackObject,
   addTrackSnaphot,
 } from "./APIs/Playlists API";
 
@@ -90,7 +92,13 @@ export default [
     PlayHistoryObject,
   ],
   // Playlist
-  ...[addTrackSnaphot, PlaylistObject, PlaylistTrackObject],
+  ...[
+    addTrackSnaphot,
+    PlaylistObject,
+    PlaylistTrackObject,
+    UserPlaylistObject,
+    UserPlaylistTrackObject,
+  ],
   // Tracks
   ...[
     AudioAnalysisObject,
