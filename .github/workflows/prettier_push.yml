@@ -7,19 +7,19 @@ on:
 jobs:
   cleanup_tasks:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
     steps:
-    - name: Cloning the repository
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
       with:
-        fetch-depth: 1 # history might get messy
-    - name: Prettify the TS Code
-      uses: blatayue/prettier_action@0.7-alpha
-      with:
-        prettier_options: --write "src/**/*.ts"
-        branch: master
-        dry: true
-#         prettier_write: true 
+        node-version: ${{ matrix.node-version }}
+    - run: npm install prettier -g
+    - run: npx prettier --check src/**/*.ts
+    - name: Pushing back to master
+      uses: mikeal/publish-to-github-action@master 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
