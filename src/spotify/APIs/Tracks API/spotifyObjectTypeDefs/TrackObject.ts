@@ -6,8 +6,8 @@ export const TrackObject = gql`
   #   restrictions: Object # TODO - Figure out reasons available to use as keys w/ val String Country Code
   # }
   type Linked_from {
-    external_urls: ExternalUrlObject
-  }
+      external_urls: ExternalUrlObject
+    }
   type TrackObject {
     album: SimplifiedAlbumObject
     artists: [ArtistObject]

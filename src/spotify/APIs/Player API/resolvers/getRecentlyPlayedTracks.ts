@@ -53,7 +53,7 @@ export const getRecentlyPlayedTracks: getRecentlyPlayedTracks = async (
     `https://api.spotify.com/v1/me/player/recently-played${qstring}`,
     {
       method: "GET",
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
     }
   );
   if (resp.status != 200)

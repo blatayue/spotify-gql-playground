@@ -30,11 +30,7 @@ type getTracks = (
   context: any
 ) => Promise<object>;
 
-export const getTracks: getTracks = async (
-  parent,
-  { ids, market },
-  context
-) => {
+export const getTracks: getTracks = async (parent, { ids, market }, context) => {
   const qstring = qs.stringify(
     { ids, market },
     { arrayFormat: "comma", addQueryPrefix: true }
