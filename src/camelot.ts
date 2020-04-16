@@ -11,7 +11,7 @@ const camelot = {
     { name: "4B", key: "Ab" },
     { name: "11B", key: "A" },
     { name: "6B", key: "Bb" },
-    { name: "1B", key: "B" }
+    { name: "1B", key: "B" },
   ],
   minor: [
     { name: "5A", key: "C" },
@@ -25,8 +25,8 @@ const camelot = {
     { name: "1A", key: "Ab" },
     { name: "8A", key: "A" },
     { name: "3A", key: "Bb" },
-    { name: "10A", key: "B" }
-  ]
+    { name: "10A", key: "B" },
+  ],
 };
 
 export const keyAndModeToCamelot = ({ key, mode }) =>

@@ -23,36 +23,30 @@ When no available devices are found, the request will return a 200 OK response b
 */
 
 type currentPlayback = (
-    parent: any, // query root
-    args: {
-      market?: string;
-    },
-    context: any
-  ) => Promise<object>;
+  parent: any, // query root
+  args: {
+    market?: string;
+  },
+  context: any
+) => Promise<object>;
 
-  export const getCurrentPlayback: currentPlayback = async (
-    parent,
+export const getCurrentPlayback: currentPlayback = async (
+  parent,
+  { market },
+  context
+) => {
+  const qstring = qs.stringify(
     { market },
-    context
-  ) => {
-    const qstring = qs.stringify(
-      { market },
-      { arrayFormat: "comma", addQueryPrefix: true }
-    );
-    const resp = await refetch(
-      `https://api.spotify.com/v1/me/player${qstring}`,
-      {
-        method: "GET",
-        headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
-      }
-    );
-    resp
-      try {
-        return await resp.json()
-      }
-      catch(e) {
-        return null
-      }
-  
-  };
-  
+    { arrayFormat: "comma", addQueryPrefix: true }
+  );
+  const resp = await refetch(`https://api.spotify.com/v1/me/player${qstring}`, {
+    method: "GET",
+    headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
+  });
+  resp;
+  try {
+    return await resp.json();
+  } catch (e) {
+    return null;
+  }
+};

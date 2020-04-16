@@ -1,10 +1,6 @@
 import qs from "qs";
 import fetch from "node-fetch";
-import {
-
-  ForbiddenError,
-  UserInputError
-} from "apollo-server-micro";
+import { ForbiddenError, UserInputError } from "apollo-server-micro";
 // Pause a User's Playback
 /*
 Pause playback on the user’s account.
@@ -48,10 +44,10 @@ export const setPlaybackPause: devicePlayback = async (
     `https://api.spotify.com/v1/me/player/pause${qstring}`,
     {
       method: "PUT",
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
     }
   );
-  console.log(await resp.text())
+  console.log(await resp.text());
 
   if (resp.status === 204) return true;
   else if (resp.status === 403) throw new ForbiddenError("User is not premium");

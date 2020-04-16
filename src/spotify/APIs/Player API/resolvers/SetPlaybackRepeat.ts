@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import {
   ApolloError,
   ForbiddenError,
-  UserInputError
+  UserInputError,
 } from "apollo-server-micro";
 // Set Repeat Mode On User’s Playback
 /*
@@ -27,15 +27,15 @@ Response: A completed request will return a 204 NO CONTENT response code, and
     If the user making the request is non-premium, a 403 FORBIDDEN response code will be returned.
 */
 enum state {
-    track,
-    context,
-    off
+  track,
+  context,
+  off,
 }
 type repeatDevicePlayback = (
   parent: any, // query root
   args: {
     device_id?: string;
-    state: state 
+    state: state;
   },
   context: any
 ) => Promise<boolean> | Error;
@@ -53,7 +53,7 @@ export const setPlaybackRepeat: repeatDevicePlayback = async (
     `https://api.spotify.com/v1/me/player/repeat${qstring}`,
     {
       method: "PUT",
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
     }
   );
 
