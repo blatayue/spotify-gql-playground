@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  make_pretty:
+  cleanup_tasks:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -13,8 +13,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12
-    - name: run prettier on src folder
-    - run: npx prettier --write "src/**/*.ts"
+    - run: npm install prettier -g
+    - run: npx prettier --check "src/**/*.ts"
     - name: Pushing back to master
       uses: mikeal/publish-to-github-action@master 
       env:
