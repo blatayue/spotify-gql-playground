@@ -2,7 +2,7 @@ import { gql, makeExecutableSchema } from "apollo-server-micro";
 import SpotifyWebApi from "spotify-web-api-node";
 import { playlistIdsToCamelot } from "./spotifyUtils";
 
-import { addTracksToPlaylist } from "./spotify/APIs/Playlists API";
+import { PlaylistResolvers } from "./spotify/APIs/Playlists API";
 
 import { AlbumResolvers } from "./spotify/APIs/Albums API";
 import { BrowseResolvers } from "./spotify/APIs/Browse API";
@@ -37,11 +37,11 @@ const resolvers = {
       }).then((camelot) => camelot[0]),
     getAccessToken: async (_, __, context: spotifyCtx) =>
       context.spotify.getAccessToken(),
-    addTracksToPlaylist,
+    ...PlaylistResolvers,
     ...AlbumResolvers,
     ...PlayerResolvers,
     ...BrowseResolvers,
-    ...TrackResolvers
+    ...TrackResolvers,
   },
   PagingItems: {
     __resolveType: (obj, ctx, info) => {
@@ -55,6 +55,7 @@ const resolvers = {
           return "SimplifiedAlbumObject";
         }
         case "playlist": {
+          if (!obj.followers) return "UserPlaylistObject";
           return "PlaylistObject";
         }
       }
@@ -101,7 +102,7 @@ const resolvers = {
     trip_hop: "trip-hop",
     work_out: "work-out",
     world_music: "world-music",
-  }
+  },
 };
 
 const typeDefs = gql`

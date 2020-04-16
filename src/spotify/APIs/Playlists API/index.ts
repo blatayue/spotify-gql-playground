@@ -1,5 +1,5 @@
 // Resolvers
-export * from "./resolvers";
+export * as PlaylistResolvers from "./resolvers";
 // Response TypeDefs
 export * from './spotifyObjectTypeDefs';
 
