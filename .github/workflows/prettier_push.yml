@@ -16,7 +16,7 @@ jobs:
     - name: Prettify the JS Code
       uses: creyD/prettier_action@v2.1
       with:
-        prettier_options: --write 'src/**/*.ts'
+        prettier_options:  --write *.ts'
         branch: master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
