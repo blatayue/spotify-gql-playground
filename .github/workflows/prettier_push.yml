@@ -18,7 +18,8 @@ jobs:
       with:
         prettier_options: '"src/**/*.ts"'
         branch: master
-        dry: true  
+        dry: true
+        write: true  
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
