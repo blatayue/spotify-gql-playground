@@ -16,7 +16,7 @@ jobs:
     - name: Prettify the TS Code
       uses: creyD/prettier_action@v2.1
       with:
-        prettier_options: "--write */**/*.ts"
+        prettier_options: "--write *!(package-lock.json)/**/}*.{ts,json}"
         branch: master
         dry: true  
       env:
