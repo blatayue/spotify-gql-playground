@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import {
   ApolloError,
   ForbiddenError,
-  UserInputError,
+  UserInputError
 } from "apollo-server-micro";
 // Skip User’s Playback To Next Track
 /*
@@ -48,7 +48,7 @@ export const skipPlaybackNext: devicePlayback = async (
     `https://api.spotify.com/v1/me/player/next${qstring}`,
     {
       method: "POST",
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
     }
   );
 

@@ -40,16 +40,14 @@ export const seekPlayer: devicePlayback = async (
   { device_id, percent, position_ms },
   context
 ) => {
-  // use percentage if it's there, even if it's 0
+  // use percentage if it's there, even if it's 0 
   // but prioritize position_ms as it is offical rather than extension
   if ((percent || percent === 0) && !position_ms) {
     const curPlay = await fetch(
       `https://api.spotify.com/v1/me/player/currently-playing`,
       {
         method: "GET",
-        headers: {
-          authorization: `Bearer ${context.spotify.getAccessToken()}`,
-        },
+        headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
       }
     );
     const jsonRes = await curPlay.json();
@@ -68,7 +66,7 @@ export const seekPlayer: devicePlayback = async (
     `https://api.spotify.com/v1/me/player/seek${qstring}`,
     {
       method: "PUT",
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
     }
   );
   console.log(await resp.text());

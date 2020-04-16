@@ -38,10 +38,13 @@ export const getAudioFeaturesSeveralTracks: getAudioFeaturesSeveralTracks = asyn
     { ids },
     { arrayFormat: "comma", addQueryPrefix: true }
   );
-  const resp = refetch(`https://api.spotify.com/v1/audio-features${qstring}`, {
-    method: "GET",
-    headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
-  });
+  const resp = refetch(
+    `https://api.spotify.com/v1/audio-features${qstring}`,
+    {
+      method: "GET",
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
+    }
+  );
   try {
     return await resp.json();
   } catch (e) {

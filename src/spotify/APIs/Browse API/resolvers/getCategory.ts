@@ -60,7 +60,7 @@ export const getCategory: getCategory = async (
     `https://api.spotify.com/v1/browse/categories/${category_id}${qstring}`,
     {
       method: "GET",
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
     }
   );
   if (resp.status != 200)

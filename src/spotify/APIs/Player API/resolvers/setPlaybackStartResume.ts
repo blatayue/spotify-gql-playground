@@ -96,7 +96,7 @@ export const setPlaybackStartResume: devicePlayback = async (
     {
       method: "PUT",
       body: JSON.stringify({ context_uri, offset, position_ms, uris }),
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
     }
   );
 

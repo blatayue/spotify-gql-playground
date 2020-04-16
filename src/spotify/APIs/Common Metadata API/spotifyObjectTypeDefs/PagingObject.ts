@@ -22,16 +22,7 @@ import { gql } from "apollo-server-micro";
 // GET https://api.spotify.com/v1/tracks
 
 export const PagingObject = gql`
-  union PagingItems =
-      CategoryObject
-    | PlaylistObject
-    | TrackObject
-    | Album
-    | PlayHistoryObject
-    | ArtistObject
-    | SimplifiedAlbumObject
-    | SimplifiedTrackObject
-    | UserPlaylistObject
+  union PagingItems = CategoryObject | PlaylistObject | TrackObject | Album | PlayHistoryObject | ArtistObject | SimplifiedAlbumObject | SimplifiedTrackObject | UserPlaylistObject
 
   type PagingObject {
     href: String

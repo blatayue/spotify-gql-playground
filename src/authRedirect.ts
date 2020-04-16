@@ -6,19 +6,20 @@ const allScopes = {
     "playlist-read-private",
     "playlist-modify-public",
     "playlist-read-collaborative",
-    "playlist-modify-private",
+    "playlist-modify-private"
   ],
   SpotifyConnect: [
     "user-read-currently-playing",
     "user-modify-playback-state",
-    "user-read-playback-state",
+    "user-read-playback-state"
   ],
   ListeningHistory: ["user-read-recently-played", "user-top-read"],
   Follow: ["user-follow-read", "user-follow-modify"],
   Playback: ["app-remote-control", "streaming"],
   Users: ["user-read-private", "user-read-email"],
-  Library: ["user-library-modify", "user-library-read"],
+  Library: ["user-library-modify", "user-library-read"]
 };
+
 
 //TODO Build endoint specific scope sets and allow for gen auth link w/ min reqs
 // join all the scopes to ask for all
@@ -30,6 +31,8 @@ export const allScopesStr = Object.values(allScopes).reduce(
   "" // build a string
 );
 
+
+
 const handler = (req: NowRequest, res: NowResponse) => {
   console.log(`request from: ${req.headers["x-real-ip"]} for oauth2 link`);
   const qs = querystring.stringify({
@@ -37,7 +40,7 @@ const handler = (req: NowRequest, res: NowResponse) => {
     client_id: process.env.spotify_client_id,
     scope: allScopesStr,
     // Like in server.ts, build redirect url dynamically
-    redirect_uri: `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/callback/`,
+    redirect_uri: `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}/callback/`
   });
 
   res.setHeader("Location", `https://accounts.spotify.com/authorize?${qs}`);

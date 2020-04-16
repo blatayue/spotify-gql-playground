@@ -43,6 +43,6 @@ export const getMultipleAlbums: getMultipleAlbums = async (
 
   return await refetch(`https://api.spotify.com/v1/albums${qstring}`, {
     method: "GET",
-    headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
+    headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
   }).json();
 };
