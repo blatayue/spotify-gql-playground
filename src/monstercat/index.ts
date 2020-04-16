@@ -10,10 +10,10 @@ const spaceApi = "https://api.ocr.space/parse/image";
 const MCApi = "https://connect.monstercat.com/api/catalog/browse";
 
 const getMixerThumbAsBase64 = ({ etag, expires }) =>
-  fetch(mixerStreamPreview).then(async (res) => {
+  fetch(mixerStreamPreview).then(async res => {
     const b64 = res
       .buffer()
-      .then((buf) => `data:image/jpeg;base64,${buf.toString("base64")}`);
+      .then(buf => `data:image/jpeg;base64,${buf.toString("base64")}`);
     return { b64, newEtag: { etag: await etag, expires: await expires } };
   });
 const createFormData = async ({ b64, newEtag }) => {
@@ -34,30 +34,29 @@ const getOCR = async ({ form, newEtag }) =>
       ...form.getHeaders(),
       apiKey: "5a64d478-9c89-43d8-88e3-c65de9999580", // comandeer browser public apiKey
       "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36", // pretend I'm not a script. shhhhhh
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36" // pretend I'm not a script. shhhhhh
     },
-    body: form,
-  }).then((res) => ({ OCRRes: res.json(), newEtag }));
+    body: form
+  }).then(res => ({ OCRRes: res.json(), newEtag }));
 
 const getNormalizedSongTitle = async ({ OCRRes, newEtag }) => {
-  console.log(await OCRRes);
-  return {
-    query: (await OCRRes).ParsedResults[0].TextOverlay.Lines.map(
-      (line) => line.LineText
-    )
-      .slice(0, 2)
-      .join(" ")
-      .toLowerCase()
-      .replace(/(|)/g, ""),
-    newEtag,
-  };
-};
+    console.log(await OCRRes)
+    return ({
+  query: (await OCRRes).ParsedResults[0].TextOverlay.Lines.map(
+    line => line.LineText
+  )
+    .slice(0, 2)
+    .join(" ")
+    .toLowerCase()
+    .replace(/(|)/g, ""),
+  newEtag
+})};
 
 const getMCCatalogResults = async ({ query, newEtag }) =>
   fetch(`${MCApi}?limit=2&search=${encodeURIComponent(await query)}`).then(
-    (res) => ({
+    res => ({
       catalogRes: res.json(),
-      newEtag,
+      newEtag
     })
   );
 
