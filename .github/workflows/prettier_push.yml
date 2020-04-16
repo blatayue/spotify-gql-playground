@@ -10,15 +10,13 @@ jobs:
 
     steps:
     - name: Cloning the repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v1
       with:
-        fetch-depth: 1 # history might get messy
-    - name: Prettify the TS Code
+        fetch-depth: 1
+    - name: Prettify the JS Code
       uses: creyD/prettier_action@v2.1
       with:
         prettier_options: --write 'src/**/*.ts'
         branch: master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Pushing back to master
-    - uses: mikeal/publish-to-github-action@master
