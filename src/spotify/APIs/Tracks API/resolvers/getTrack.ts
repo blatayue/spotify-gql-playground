@@ -37,10 +37,13 @@ export const getTrack: getTrack = async (parent, { id, market }, context) => {
     { market },
     { arrayFormat: "comma", addQueryPrefix: true }
   );
-  const resp = await fetch(`https://api.spotify.com/v1/tracks/${id}${qstring}`, {
-    method: "GET",
-    headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
-  });
+  const resp = await fetch(
+    `https://api.spotify.com/v1/tracks/${id}${qstring}`,
+    {
+      method: "GET",
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
+    }
+  );
   if (resp.status != 200)
     throw new UserInputError((await resp.json()).error.message);
 

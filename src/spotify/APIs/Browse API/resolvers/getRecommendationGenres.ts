@@ -1,6 +1,5 @@
 import refetch from "@hazelee/refetch";
 
-
 /*
 https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-recommendation-genres
 Get Recommendation Genres
@@ -27,5 +26,5 @@ export const getRecommendationGenres: getRecommendationGenres = async (
 ) =>
   refetch(`https://api.spotify.com/v1/recommendations/available-genre-seeds`, {
     method: "GET",
-    headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
+    headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
   }).json();

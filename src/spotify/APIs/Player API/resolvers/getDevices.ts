@@ -18,12 +18,8 @@ type getDevices = (
   context: any
 ) => Promise<object>;
 
-export const getDevices: getDevices = async (
-  parent,
-  {},
-  context
-) =>
+export const getDevices: getDevices = async (parent, {}, context) =>
   refetch(`https://api.spotify.com/v1/me/player/devices`, {
     method: "GET",
-    headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
+    headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
   }).json();
