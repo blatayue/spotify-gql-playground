@@ -16,10 +16,10 @@ jobs:
     - name: Prettify the TS Code
       uses: blatayue/prettier_action@0.7-alpha
       with:
-        prettier_options: --write "src/**/*.ts"
+        prettier_options: src/**/*.ts
         branch: master
         dry: true
-#         prettier_write: true 
+        prettier_write: true  
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
