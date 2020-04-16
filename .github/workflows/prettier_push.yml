@@ -14,7 +14,7 @@ jobs:
       with:
         node-version: 12
     - name: run prettier on src folder
-    - run: npx prettier --write "src/**/*.ts"
+      run: npx prettier --write "src/**/*.ts"
     - name: Pushing back to master
       uses: mikeal/publish-to-github-action@master 
       env:
