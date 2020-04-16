@@ -52,7 +52,7 @@ export const getAlbumTracks: getAlbumTracks = async (
     `https://api.spotify.com/v1/albums/${id}/tracks${qstring}`,
     {
       method: "GET",
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
     }
   ).json();
 };

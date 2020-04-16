@@ -46,14 +46,12 @@ export const getCurrentlyPlaying: currentlyPlaying = async (
     `https://api.spotify.com/v1/me/player/currently-playing${qstring}`,
     {
       method: "GET",
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
     }
   );
-    try {
-      return await resp.json()
-    }
-    catch(e) {
-      return null
-    }
-
+  try {
+    return await resp.json();
+  } catch (e) {
+    return null;
+  }
 };
