@@ -16,12 +16,9 @@ jobs:
     - name: Prettify the TS Code
       uses: creyD/prettier_action@v2.1
       with:
-        prettier_options: --write src/**/*.ts
+        prettier_options: "--write \"src/**/*.ts\""
         branch: master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Pushing back to master
-      uses: mikeal/publish-to-github-action@master
+        dry: true  
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
