@@ -2,9 +2,9 @@ import { gql } from "apollo-server-micro";
 
 // GET https://api.spotify.com/v1/tracks/{id}
 export const TrackObject = gql`
-  # type TrackRestrictionObject {
-  #   restrictions: Object # TODO - Figure out reasons available to use as keys w/ val String Country Code
-  # }
+  type TrackRestrictionObject {
+    reason: String
+  }
   type Linked_from {
       external_urls: ExternalUrlObject
     }
@@ -21,7 +21,7 @@ export const TrackObject = gql`
     id: String
     is_playable: Boolean
     linked_from: Linked_from
-    # restrictions: [TrackRestrictionObject] // TODO Fix
+    restrictions: TrackRestrictionObject
     name: String
     popularity: Int
     preview_url: String
