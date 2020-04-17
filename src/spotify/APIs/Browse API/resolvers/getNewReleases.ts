@@ -51,7 +51,7 @@ export const getNewReleases: getNewReleases = async (
     `https://api.spotify.com/v1/browse/new-releases${qstring}`,
     {
       method: "GET",
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
     }
   );
   if (resp.status != 200)

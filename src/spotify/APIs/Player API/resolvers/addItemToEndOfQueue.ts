@@ -47,7 +47,7 @@ export const addToQueue: addToQueue = async (
     `https://api.spotify.com/v1/me/player/queue${qstring}`,
     {
       method: "POST",
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
+      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
     }
   );
   console.log(await resp.text());
