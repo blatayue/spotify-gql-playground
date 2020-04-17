@@ -1,8 +1,8 @@
 import SpotifyWebApi from "spotify-web-api-node";
 import { keyAndModeToCamelot } from "./camelot";
-const getItems = res => res.body.items;
+const getItems = (res) => res.body.items;
 
-const mapIds = items => items.map(item => item.id);
+const mapIds = (items) => items.map((item) => item.id);
 
 interface playlistsAndSpotify {
   spotify: SpotifyWebApi;
@@ -11,23 +11,23 @@ interface playlistsAndSpotify {
 
 // get the tracks for each (w/ map) playlist from the id
 const getPlaylistTracks = async ({ playlists, spotify }: playlistsAndSpotify) =>
-  Promise.all(playlists.map(async id => await spotify.getPlaylistTracks(id)));
+  Promise.all(playlists.map(async (id) => await spotify.getPlaylistTracks(id)));
 
 // transform song[] into playlist[{songs: id[], names: name[]}]
-const mapIdAndNameFromPlaylist = playlists =>
-  playlists.map(playlist => ({
-    ids: playlist.map(song => song.id),
-    names: playlist.map(song => song.name)
+const mapIdAndNameFromPlaylist = (playlists) =>
+  playlists.map((playlist) => ({
+    ids: playlist.map((song) => song.id),
+    names: playlist.map((song) => song.name),
   }));
 
 const getFeatures = (spotify: SpotifyWebApi) => async ({ ids, names }) =>
   await spotify
     .getAudioFeaturesForTracks(ids) // get the audio features for all songs
-    .then(featureRes =>
+    .then((featureRes) =>
       featureRes.body.audio_features.map((features, index) => ({
         keyNum: features.key,
         mode: features.mode,
-        name: names[index]
+        name: names[index],
       }))
     );
 interface features {
@@ -39,18 +39,18 @@ interface features {
 const camelotFromKeyAndMode = ({ keyNum, mode, name }: features) => ({
   title: name,
   ...keyAndModeToCamelot({ key: keyNum, mode }),
-  mode: mode ? "major" : "minor" // mode is major if 1, minor if 0, treat major as boolean true
+  mode: mode ? "major" : "minor", // mode is major if 1, minor if 0, treat major as boolean true
 });
 
 export const playlistIdsToCamelot = ({ spotify, playlists }) =>
   getPlaylistTracks({ spotify, playlists }) // get tracks for every playlist
-    .then(playlists => playlists.map(getItems)) // get items from every tracks response for every playlist
-    .then(playlists =>
-      playlists.map(playlist => playlist.map(tracks => tracks.track))
+    .then((playlists) => playlists.map(getItems)) // get items from every tracks response for every playlist
+    .then((playlists) =>
+      playlists.map((playlist) => playlist.map((tracks) => tracks.track))
     ) // drill props
     .then(mapIdAndNameFromPlaylist) // tramsform
-    .then(playlists => Promise.all(playlists.map(getFeatures(spotify)))) // get Features for key/mode/whatever
-    .then(playlists =>
+    .then((playlists) => Promise.all(playlists.map(getFeatures(spotify)))) // get Features for key/mode/whatever
+    .then((playlists) =>
       playlists.map((playlist: features[]) =>
         playlist.map(camelotFromKeyAndMode)
       )

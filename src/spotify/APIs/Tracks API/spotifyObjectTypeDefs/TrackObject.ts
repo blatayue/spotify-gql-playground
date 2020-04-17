@@ -6,8 +6,8 @@ export const TrackObject = gql`
     reason: String
   }
   type Linked_from {
-      external_urls: ExternalUrlObject
-    }
+    external_urls: ExternalUrlObject
+  }
   type TrackObject {
     album: SimplifiedAlbumObject
     artists: [ArtistObject]

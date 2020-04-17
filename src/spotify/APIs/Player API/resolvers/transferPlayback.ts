@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import {
   ApolloError,
   ForbiddenError,
-  UserInputError
+  UserInputError,
 } from "apollo-server-micro";
 // Transfer a User's Playback
 /*
@@ -45,14 +45,11 @@ export const transferPlayback: transferPlayback = async (
   { device_ids, play },
   context
 ) => {
-  const resp = await fetch(
-    `https://api.spotify.com/v1/me/player`,
-    {
-      method: "PUT",
-      body: JSON.stringify({ device_ids, play }),
-      headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` }
-    }
-  );
+  const resp = await fetch(`https://api.spotify.com/v1/me/player`, {
+    method: "PUT",
+    body: JSON.stringify({ device_ids, play }),
+    headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
+  });
 
   if (resp.status === 204) return true;
   else if (resp.status === 403) throw new ForbiddenError("User is not premium");

@@ -6,8 +6,8 @@ const apolloServer = new ApolloServer({
   schema,
   tracing: true,
   introspection: true,
-  context: spotifyContext
+  context: spotifyContext,
 });
- 
+
 export const graphqlServer = apolloServer.createHandler();
 export default graphqlServer;
