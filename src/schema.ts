@@ -9,7 +9,7 @@ import {
 
 import { AlbumResolvers } from "./spotify/APIs/Albums API";
 import { BrowseResolvers } from "./spotify/APIs/Browse API";
-import { PlayerResolvers } from "./spotify/APIs/Player API";
+import { PlayerQueries, PlayerMutations } from "./spotify/APIs/Player API";
 import { TrackResolvers } from "./spotify/APIs/Tracks API";
 
 type spotifyCtx = { spotify: SpotifyWebApi };
@@ -42,12 +42,13 @@ const resolvers = {
       context.spotify.getAccessToken(),
     ...playlistQueries,
     ...AlbumResolvers,
-    ...PlayerResolvers,
+    ...PlayerQueries,
     ...BrowseResolvers,
     ...TrackResolvers,
   },
   Mutation: {
     ...playlistMutations,
+    ...PlayerMutations,
   },
   PagingItems: {
     __resolveType: (obj, ctx, info) => {

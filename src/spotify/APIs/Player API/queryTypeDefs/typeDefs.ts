@@ -13,6 +13,16 @@ export default gql`
   extend type Query {
     getCurrentlyPlaying(market: String): CurrentlyPlaying
     getCurrentPlayback(market: String): CurrentPlayback
+    getDevices: Devices
+    getRecentlyPlayedTracks(
+      type: String
+      before: Float
+      after: Float
+      limit: Int
+    ): CursorPagingObject
+  }
+
+  extend type Mutation {
     setPlaybackRepeat(device_id: String, state: state): Boolean
     skipPlaybackNext(device_id: String): Boolean
     skipPlaybackPrevious(device_id: String): Boolean
@@ -25,15 +35,8 @@ export default gql`
       position_ms: Int
       offset: offset
     ): Boolean
-    getDevices: Devices
     seekPlayer(device_id: String, position_ms: Int, percent: Float): Boolean
     setVolume(device_id: String, volume_percent: Int): Boolean
     transferPlayback(device_ids: [String], play: Boolean): Boolean
-    getRecentlyPlayedTracks(
-      type: String
-      before: Float
-      after: Float
-      limit: Int
-    ): CursorPagingObject
   }
 `;

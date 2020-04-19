@@ -1,13 +1,2 @@
-export { getCurrentlyPlaying } from "./CurrentlyPlaying";
-export { getCurrentPlayback } from "./CurrentPlayback";
-export { setPlaybackRepeat } from "./SetPlaybackRepeat";
-export { skipPlaybackNext } from "./skipPlaybackNext";
-export { skipPlaybackPrevious } from "./skipPlaybackPrevious";
-export { setPlaybackPause } from "./setPlaybackPause";
-export { setPlaybackStartResume } from "./setPlaybackStartResume";
-export { getDevices } from "./getDevices";
-export { addToQueue } from "./addItemToEndOfQueue";
-export { seekPlayer } from "./seekPlayer";
-export { setVolume } from "./setVolume";
-export { transferPlayback } from "./transferPlayback";
-export { getRecentlyPlayedTracks } from "./getRecentlyPlayedTracks";
+export * as PlayerQueries from "./queries";
+export * as PlayerMutations from "./mutations";
