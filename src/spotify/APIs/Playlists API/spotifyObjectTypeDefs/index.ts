@@ -1,4 +1,4 @@
-export { addItemSnaphot } from "./addItemsSnapshot";
+export { snapshotResponse } from "./SnapshotResponse";
 export { PlaylistObject } from "./PlaylistObject";
 export { PlaylistTrackObject } from "./PlaylistTrackObject";
 export { UserPlaylistObject } from "./UserPlaylistObject";

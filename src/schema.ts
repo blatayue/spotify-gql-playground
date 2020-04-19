@@ -2,7 +2,10 @@ import { gql, makeExecutableSchema } from "apollo-server-micro";
 import SpotifyWebApi from "spotify-web-api-node";
 import { playlistIdsToCamelot } from "./spotifyUtils";
 
-import { PlaylistResolvers } from "./spotify/APIs/Playlists API";
+import {
+  playlistMutations,
+  playlistQueries,
+} from "./spotify/APIs/Playlists API";
 
 import { AlbumResolvers } from "./spotify/APIs/Albums API";
 import { BrowseResolvers } from "./spotify/APIs/Browse API";
@@ -37,11 +40,14 @@ const resolvers = {
       }).then((camelot) => camelot[0]),
     getAccessToken: async (_, __, context: spotifyCtx) =>
       context.spotify.getAccessToken(),
-    ...PlaylistResolvers,
+    ...playlistQueries,
     ...AlbumResolvers,
     ...PlayerResolvers,
     ...BrowseResolvers,
     ...TrackResolvers,
+  },
+  Mutation: {
+    ...playlistMutations,
   },
   PagingItems: {
     __resolveType: (obj, ctx, info) => {
@@ -106,6 +112,7 @@ const resolvers = {
 };
 
 const typeDefs = gql`
+  type Mutation
   type Query {
     getAuthLink: String
     getCamelotFromPlaylist(id: String): [camelotObj]
@@ -121,6 +128,7 @@ const typeDefs = gql`
   }
   type schema {
     query: Query
+    mutation: Mutation
   }
 `;
 export const schema = makeExecutableSchema({

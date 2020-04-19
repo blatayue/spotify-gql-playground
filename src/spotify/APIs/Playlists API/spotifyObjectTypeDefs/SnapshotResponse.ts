@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-micro";
 
-export const addItemSnaphot = gql`
-  type addItemsToPlaylistRes {
+export const snapshotResponse = gql`
+  type SnapshotResponse {
     snapshot_id: String
   }
 `;

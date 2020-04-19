@@ -2,12 +2,15 @@ import { gql } from "apollo-server-micro";
 
 export default gql`
   extend type Query {
+    getUserPlaylists(user_id: String, limit: Int, offset: Int): PagingObject # UserPlaylistObject
+  }
+
+  extend type Mutation {
     addItemsToPlaylist(
-      items: [String]
       playlist_id: String
+      items: [String]
       position: Int
-    ): addItemsToPlaylistRes
-    getUserPlaylists(user_id: String, limit: Int, offset: Int): PagingObject
-    # UserPlaylistObject
+    ): SnapshotResponse
+    replacePlaylistItems(playlist_id: String, items: [String]): SnapshotResponse
   }
 `;
