@@ -43,7 +43,7 @@ import PlaylistQueryTypeDefs, {
   PlaylistTrackObject,
   UserPlaylistObject,
   UserPlaylistTrackObject,
-  addTrackSnaphot,
+  addItemSnaphot,
 } from "./APIs/Playlists API";
 
 import TracksQueryTypeDefs, {
@@ -93,7 +93,7 @@ export default [
   ],
   // Playlist
   ...[
-    addTrackSnaphot,
+    addItemSnaphot,
     PlaylistObject,
     PlaylistTrackObject,
     UserPlaylistObject,

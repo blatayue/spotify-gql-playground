@@ -2,11 +2,11 @@ import { gql } from "apollo-server-micro";
 
 export default gql`
   extend type Query {
-    addTracksToPlaylist(
-      tracks: [String]
+    addItemsToPlaylist(
+      items: [String]
       playlist_id: String
       position: Int
-    ): addTracksToPlaylistRes
+    ): addItemsToPlaylistRes
     getUserPlaylists(user_id: String, limit: Int, offset: Int): PagingObject
     # UserPlaylistObject
   }

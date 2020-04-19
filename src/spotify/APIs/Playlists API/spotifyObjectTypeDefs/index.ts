@@ -1,4 +1,4 @@
-export { addTrackSnaphot } from "./addTracksSnapshot";
+export { addItemSnaphot } from "./addItemsSnapshot";
 export { PlaylistObject } from "./PlaylistObject";
 export { PlaylistTrackObject } from "./PlaylistTrackObject";
 export { UserPlaylistObject } from "./UserPlaylistObject";
