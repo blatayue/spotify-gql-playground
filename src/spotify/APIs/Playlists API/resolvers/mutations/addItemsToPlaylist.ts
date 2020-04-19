@@ -81,5 +81,5 @@ export const addItemsToPlaylist: addItemsToPlaylist = async (
   }
   if (resp.status !== 201)
     throw new UserInputError((await resp.json()).error.message);
-  return await resp.json();
+  return await resp.json()
 };
