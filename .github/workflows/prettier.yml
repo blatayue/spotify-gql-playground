@@ -18,6 +18,6 @@ jobs:
     - name: Pushing back to master
       uses: blatayue/publish-to-github-action@0.1-alpha
       with:
-        commit_message: Prettified Code!
+        commit_message: "Prettified Code! \n you should setup a prettier pre-commit hook\n"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
