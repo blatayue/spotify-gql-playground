@@ -20,6 +20,7 @@ export default gql`
       insert_before: Int!
       range_start: Int!
       range_length: Int
+      snapshot_id: String
     ): SnapshotResponse
   }
 `;

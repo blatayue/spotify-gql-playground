@@ -44,13 +44,14 @@ type reorderPlaylistItems = (
     insert_before: number;
     range_start: number;
     range_length?: number;
+    snapshot_id?: string;
   },
   context: any
 ) => Promise<{ snapshot_id: string }>;
 
 export const reorderPlaylistItems: reorderPlaylistItems = async (
   parent,
-  { insert_before, range_start, range_length, playlist_id },
+  { insert_before, range_start, range_length, playlist_id, snapshot_id },
   context
 ) => {
   const resp = await fetch(
@@ -61,7 +62,12 @@ export const reorderPlaylistItems: reorderPlaylistItems = async (
         authorization: `Bearer ${context.spotify.getAccessToken()}`,
         content_type: "application/json",
       },
-      body: JSON.stringify({ insert_before, range_start, range_length }),
+      body: JSON.stringify({
+        insert_before,
+        range_start,
+        range_length,
+        snapshot_id,
+      }),
     }
   );
   if (resp.status === 403) {
