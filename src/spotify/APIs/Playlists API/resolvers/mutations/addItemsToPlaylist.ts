@@ -53,7 +53,7 @@ type addItemsToPlaylist = (
   args: {
     items: string[]; // uri[]
     playlist_id: string;
-    position: number; // offset, defaults to appending
+    position?: number; // offset, defaults to appending
   },
   context: any
 ) => Promise<{ snapshot_id: string }>;
@@ -71,9 +71,7 @@ export const addItemsToPlaylist: addItemsToPlaylist = async (
         authorization: `Bearer ${context.spotify.getAccessToken()}`,
         content_type: "application/json",
       },
-      body: position // optional
-        ? JSON.stringify({ uris: items, position })
-        : JSON.stringify({ uris: items }),
+      body: JSON.stringify({ uris: items, position }),
     }
   );
   if (resp.status === 403) {
