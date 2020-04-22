@@ -3,7 +3,7 @@ import { gql } from "apollo-server-micro";
 export default gql`
   extend type Query {
     getUserPlaylists(user_id: String!, limit: Int, offset: Int): PagingObject # UserPlaylistObject
-    getPlaylistCoverImage(playlist_id: String): [ImageObject]
+    getPlaylistCoverImage(playlist_id: String!): [ImageObject]
   }
 
   extend type Mutation {
@@ -24,7 +24,7 @@ export default gql`
       snapshot_id: String
     ): SnapshotResponse
     changePlaylistDetails(
-      playlist_id: String
+      playlist_id: String!
       name: String
       public: Boolean
       collaborative: Boolean
