@@ -10,7 +10,7 @@ HEADER:
 Authorization: A valid user access token	String	Required
 
 PATH PARAMETER:
-{playlist_id}: The user’s Spotify user ID.
+{playlist_id}: The Spotify ID for the playlist
 
 Response: On success, the response body contains a list of image objects in JSON format 
     and the HTTP status code in the response header is 200 OK 
