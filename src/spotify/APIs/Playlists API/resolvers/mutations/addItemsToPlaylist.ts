@@ -69,7 +69,7 @@ export const addItemsToPlaylist: addItemsToPlaylist = async (
       method: "POST",
       headers: {
         authorization: `Bearer ${context.spotify.getAccessToken()}`,
-        content_type: "application/json",
+        "content-type": "application/json",
       },
       body: JSON.stringify({ uris: items, position }),
     }
