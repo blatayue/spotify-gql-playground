@@ -22,5 +22,12 @@ export default gql`
       range_length: Int
       snapshot_id: String
     ): SnapshotResponse
+    changePlaylistDetails(
+      playlist_id: String
+      name: String
+      public: Boolean
+      collaborative: Boolean
+      description: String
+    ): Boolean
   }
 `;
