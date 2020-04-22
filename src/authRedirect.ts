@@ -18,6 +18,7 @@ const allScopes = {
   Playback: ["app-remote-control", "streaming"],
   Users: ["user-read-private", "user-read-email"],
   Library: ["user-library-modify", "user-library-read"],
+  ImageUpload: ["ugc-image-upload"],
 };
 
 //TODO Build endoint specific scope sets and allow for gen auth link w/ min reqs

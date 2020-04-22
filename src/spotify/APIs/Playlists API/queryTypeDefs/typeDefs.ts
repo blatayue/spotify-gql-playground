@@ -30,5 +30,11 @@ export default gql`
       collaborative: Boolean
       description: String
     ): Boolean
+
+    uploadCustomPlaylistCover(
+      playlist_id: String!
+      image: String
+      image_url: String
+    ): Boolean
   }
 `;
