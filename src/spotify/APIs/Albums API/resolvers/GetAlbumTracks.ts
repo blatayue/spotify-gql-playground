@@ -14,8 +14,9 @@ id:  The Spotify ID of the album
 
 QUERY PARAMETERS:
 limit: The maximum number of tracks to return. Default: 20. Minimum: 1. Maximum: 50.
-market: The market you’d like to request. Synonym for country.
-offset: An ISO 3166-1 alpha-2 country code or the string from_token. 
+offset The index of the first track to return. Default: 0 (the first object). 
+  Use with limit to get the next set of tracks.
+market: An ISO 3166-1 alpha-2 country code or the string from_token. 
         Provide this parameter if you want to apply Track Relinking.
 
 Response: On success, the HTTP status code in the response header is 200 OK
