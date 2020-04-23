@@ -52,9 +52,11 @@ const resolvers = {
   },
   PagingItems: {
     __resolveType: (obj, ctx, info) => {
+      // So the type prop isn't really unique enough, but sometimes it's alright
       if (obj.played_at) return "PlayHistoryObject";
       if (obj.icons) return "CategoryObject";
       if (obj.added_by) return "PlaylistTrackObject";
+      // TODO: Add default case
       switch (obj.type) {
         case "track": {
           return "SimplifiedTrackObject";

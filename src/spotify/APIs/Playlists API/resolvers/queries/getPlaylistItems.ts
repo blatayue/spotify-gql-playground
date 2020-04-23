@@ -13,7 +13,7 @@ PATH PARAMETER:
 {playlist_id}: The Spotify ID for the playlist
 
 QUERY PARAMETERS:
-limit: The maximum number of tracks to return. Default: 100. Minimum: 1. Maximum: 100.
+limit: The maximum number of items to return. Default: 100. Minimum: 1. Maximum: 100.
 offset: The index of the first item to return. Default: 0 (the first object).
 market: An ISO 3166-1 alpha-2 country code or the string from_token. 
         Provide this parameter if you want to apply Track Relinking. 
@@ -35,6 +35,7 @@ Response: On success, the response body contains an array of track objects and e
 
 */
 
+// TODO: Determine if fields param can be implemented to reduce over-fetching - low priority
 type getPlaylistItems = (
   parent: any, // query root
   args: {
