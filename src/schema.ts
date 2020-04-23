@@ -54,6 +54,7 @@ const resolvers = {
     __resolveType: (obj, ctx, info) => {
       if (obj.played_at) return "PlayHistoryObject";
       if (obj.icons) return "CategoryObject";
+      if (obj.added_by) return "PlaylistTrackObject";
       switch (obj.type) {
         case "track": {
           return "SimplifiedTrackObject";

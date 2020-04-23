@@ -4,6 +4,12 @@ export default gql`
   extend type Query {
     getUserPlaylists(user_id: String!, limit: Int, offset: Int): PagingObject # UserPlaylistObject
     getPlaylistCoverImage(playlist_id: String!): [ImageObject]
+    getPlaylistItems(
+      playlist_id: String!
+      market: String
+      limit: String
+      offset: Int
+    ): PagingObject # PlaylistTrackObject
   }
 
   extend type Mutation {

@@ -32,6 +32,7 @@ export const PagingObject = gql`
     | SimplifiedAlbumObject
     | SimplifiedTrackObject
     | UserPlaylistObject
+    | PlaylistTrackObject
 
   type PagingObject {
     href: String
