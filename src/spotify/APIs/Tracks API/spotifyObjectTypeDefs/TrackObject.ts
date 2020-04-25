@@ -14,12 +14,13 @@ export const TrackObject = gql`
     available_markets: [String]
     disc_number: Int
     duration_ms: Int
+    episode: Boolean
     explicit: Boolean
     external_ids: ExternalIdObject
     external_urls: ExternalUrlObject
     href: String
     id: String
-    is_playable: Boolean
+    is_playable: Boolean # TODO: More research needed
     linked_from: Linked_from
     restrictions: TrackRestrictionObject
     name: String

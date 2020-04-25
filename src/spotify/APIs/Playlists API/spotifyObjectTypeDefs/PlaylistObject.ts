@@ -14,7 +14,7 @@ export const PlaylistObject = gql`
     primary_color: String
     public: Boolean
     snapshot_id: String
-    tracks: [TrackObject]
+    tracks: PagingObject #
     type: String # playlist
     uri: String
   }

@@ -10,6 +10,7 @@ export default gql`
       limit: String
       offset: Int
     ): PagingObject # PlaylistTrackObject
+    getPlaylist(playlist_id: String!, market: String): PlaylistObject
   }
 
   extend type Mutation {

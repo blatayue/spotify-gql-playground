@@ -1,15 +1,16 @@
 node_modules
 .env
-notes.md
-*.code-workspace
-test.ts
-.vscode
 .DS_Store
-
-typeOut.ts
+.vscode
+*.code-workspace
+.next
 
 .now
-.next
+
+notes.md
+test.ts
+typeOut.ts
 Untitled*.*
+reqExamples.md
 
 *fixture*
