@@ -43,5 +43,10 @@ export default gql`
       image: String
       image_url: String
     ): Boolean
+    removeItemsFromPlaylist(
+      playlist_id: String!
+      uris: [String]!
+      snapshot_id: String
+    ): SnapshotResponse
   }
 `;
