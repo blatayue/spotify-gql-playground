@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import qs from "qs";
-import { UserInputError } from "apollo-server-micro";
+import { UserInputError, gql } from "apollo-server-micro";
 /*
 https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-several-tracksGet a Track
 Get Spotify catalog information for multiple tracks based on their Spotify IDs.
@@ -20,6 +20,19 @@ Response: On success, the HTTP status code in the response header is 200 OK
 
     On error, the header status code is an error code and the response body contains an error object.
 */
+
+export const getTracksGQL = gql`
+  extend type Query {
+    """
+
+    """
+    getTracks(ids: [String], market: String): SeveralTracks
+  }
+
+  type SeveralTracks {
+    tracks: [TrackObject]
+  }
+`;
 
 type getTracks = (
   parent: any, // query root

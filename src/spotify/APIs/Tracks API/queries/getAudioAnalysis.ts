@@ -1,7 +1,5 @@
 import fetch from "node-fetch";
-import qs from "qs";
-import { writeFile, fstat } from "fs";
-import { UserInputError } from "apollo-server-micro";
+import { UserInputError, gql } from "apollo-server-micro";
 /*
 https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-audio-analysis
 
@@ -20,6 +18,15 @@ Response: On success, the HTTP status code in the response header is 200 OK
 
     On error, the header status code is an error code and the response body contains an error object.
 */
+
+export const getAudioAnalysisGQL = gql`
+  extend type Query {
+    """
+
+    """
+    getAudioAnalysis(id: String): AudioAnalysisObject
+  }
+`;
 
 type getAudioAnalysis = (
   parent: any, // query root
@@ -40,7 +47,5 @@ export const getAudioAnalysis: getAudioAnalysis = async (
   });
   if (resp.status != 200)
     throw new UserInputError((await resp.json()).error.message);
-  const json = await resp.json();
-  writeFile("./analysis.json", JSON.stringify(json), () => {});
-  return json;
+  return await resp.json();
 };

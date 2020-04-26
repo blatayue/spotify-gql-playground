@@ -48,7 +48,8 @@ import {
   snapshotResponse,
 } from "./APIs/Playlists API";
 
-import TracksQueryTypeDefs, {
+import {
+  TracksQueryTypeDefs,
   AudioFeaturesObject,
   SimplifiedTrackObject,
   TrackObject,
@@ -118,6 +119,6 @@ export default [
     PlayerQueryTypeDefs,
     ...playlistQueryTypeDefs,
     ...playlistMutationTypeDefs,
-    TracksQueryTypeDefs,
+    ...TracksQueryTypeDefs,
   ],
 ];

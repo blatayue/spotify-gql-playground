@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import qs from "qs";
-import { UserInputError } from "apollo-server-micro";
+import { UserInputError, gql } from "apollo-server-micro";
 /*
 https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-track
 Get a Track
@@ -22,6 +22,15 @@ Response: On success, the HTTP status code in the response header is 200 OK
 
     On error, the header status code is an error code and the response body contains an error object.
 */
+
+export const getTrackGQL = gql`
+  extend type Query {
+    """
+
+    """
+    getTrack(id: String, market: String): TrackObject
+  }
+`;
 
 type getTrack = (
   parent: any, // query root

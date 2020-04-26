@@ -1,5 +1,6 @@
 import refetch from "@hazelee/refetch";
 import qs from "qs";
+import { gql } from "apollo-server-micro";
 // Get Audio Features for Several Tracks
 /*
 Get audio features for multiple tracks based on their Spotify IDs.
@@ -20,6 +21,18 @@ Duplicate ids in the query will result in duplicate objects in the response
 
 On error, the header status code is an error code and the response body contains an error object.
 */
+
+export const getAudioFeaturesSeveralTracksGQL = gql`
+  extend type Query {
+    """
+
+    """
+    getAudioFeaturesSeveralTracks(ids: [String]): SeveralAudioFeaturesTracks
+  }
+  type SeveralAudioFeaturesTracks {
+    audio_features: [AudioFeaturesObject]
+  }
+`;
 
 type getAudioFeaturesSeveralTracks = (
   parent: any, // query root

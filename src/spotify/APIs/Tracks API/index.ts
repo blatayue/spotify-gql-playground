@@ -1,8 +1,8 @@
 // Resolvers
-export * as TrackResolvers from "./resolvers";
+export * as TrackResolvers from "./queries";
 // Response TypeDefs
 export * from "./spotifyObjectTypeDefs";
 
 // Query TypeDefs
-import TracksQueryTypeDefs from "./queryTypeDefs/typeDefs";
-export default TracksQueryTypeDefs;
+export * from "./queries/typeDefs";
+// export default TracksQueryTypeDefs;
