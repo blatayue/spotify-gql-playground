@@ -47,8 +47,6 @@ export const setPlaybackPause: devicePlayback = async (
       headers: { authorization: `Bearer ${context.spotify.getAccessToken()}` },
     }
   );
-  console.log(await resp.text());
-
   if (resp.status === 204) return true;
   else if (resp.status === 403) throw new ForbiddenError("User is not premium");
   else if (resp.status === 404) throw new UserInputError("Device not Found");

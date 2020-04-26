@@ -73,7 +73,5 @@ export const getPlaylist: getPlaylist = async (
   );
   if (resp.status != 200)
     throw new UserInputError((await resp.json()).error.message);
-  const respJ = await resp.json();
-  console.log(respJ);
-  return respJ;
+  return await resp.json();
 };

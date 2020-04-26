@@ -48,7 +48,6 @@ export const getAlbumTracks: getAlbumTracks = async (
     { market, offset, limit },
     { arrayFormat: "comma", addQueryPrefix: true }
   );
-  console.log(`https://api.spotify.com/v1/albums/${id}/tracks${qstring}`);
   return await refetch(
     `https://api.spotify.com/v1/albums/${id}/tracks${qstring}`,
     {

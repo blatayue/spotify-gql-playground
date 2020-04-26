@@ -155,7 +155,6 @@ export const getRecommendations: getRecommendations = async (
       addQueryPrefix: true,
     }
   );
-  console.log(`https://api.spotify.com/v1/recommendations${qstring}`);
   const resp = await fetch(
     `https://api.spotify.com/v1/recommendations${qstring}`,
     {
