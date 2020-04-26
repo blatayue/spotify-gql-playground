@@ -4,5 +4,5 @@ export * as TrackResolvers from "./queries";
 export * from "./spotifyObjectTypeDefs";
 
 // Query TypeDefs
-export * from "./queries/typeDefs";
+export * from "./typeDefs";
 // export default TracksQueryTypeDefs;
