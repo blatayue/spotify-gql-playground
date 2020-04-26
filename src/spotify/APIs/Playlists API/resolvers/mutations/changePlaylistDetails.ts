@@ -43,18 +43,11 @@ type changePlaylistDetails = (
 
 export const changePlaylistDetails: changePlaylistDetails = async (
   parent,
-  //@ts-ignore
   args,
   context
 ) => {
-  const {
-    name,
-    collaborative,
-    description,
-    playlist_id,
-    ...rest /* <- { public } */
-  } = args;
-  const isPublic = rest.public;
+  const { name, collaborative, description, playlist_id } = args;
+  const isPublic = args.public; // public is a reserved word, ergo, workaround
   const resp = await fetch(
     `https://api.spotify.com/v1/playlists/${playlist_id}`,
     {
@@ -65,8 +58,7 @@ export const changePlaylistDetails: changePlaylistDetails = async (
       },
       body: JSON.stringify({
         name,
-        //@ts-ignore public is a reserved word in strict mode, but the api uses it...
-        public: isPublic,
+        public: isPublic, // workaround
         collaborative,
         description,
       }),
@@ -80,5 +72,5 @@ export const changePlaylistDetails: changePlaylistDetails = async (
   if (resp.status !== 200)
     throw new UserInputError((await resp.json()).error.message);
 
-  if (resp.status === 200) return await true;
+  if (resp.status === 200) return true;
 };
