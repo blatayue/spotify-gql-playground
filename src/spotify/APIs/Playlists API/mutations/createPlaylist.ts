@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { UserInputError, ForbiddenError } from "apollo-server-micro";
+import { UserInputError, ForbiddenError, gql } from "apollo-server-micro";
 /*
 https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-create-playlist
 Create a Playlist
@@ -37,6 +37,18 @@ Response: On success, the HTTP status code in the response header is 200 OK.
 	On error, the header status code is an error code and the response body contains an error object.
 	Trying to set an item when you do not have the user’s authorization, or when there are more than 10.000 items in the playlist, returns error 403 Forbidden.
 */
+
+export const createPlaylistGQL = gql`
+  extend type Mutation {
+    createPlaylist(
+      user_id: String!
+      name: String
+      public: Boolean
+      collaborative: Boolean
+      description: String
+    ): PlaylistObject
+  }
+`;
 
 type createPlaylist = (
   parent: any, // query root

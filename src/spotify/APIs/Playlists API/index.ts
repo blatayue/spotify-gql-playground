@@ -1,8 +1,8 @@
 // Resolvers
-export * from "./resolvers";
-// Response TypeDefs
-export * from "./spotifyObjectTypeDefs";
+export * as playlistQueryResolvers from "./queries";
+export * as playlistMutationResolvers from "./mutations";
 
-// Query TypeDefs
-import playlistQueryTypeDefs from "./queryTypeDefs/typeDefs";
-export default playlistQueryTypeDefs;
+export * from "./spotifyObjectTypeDefs";
+// TypeDefs
+export * from "./mutations/typeDefs";
+export * from "./queries/typeDefs";

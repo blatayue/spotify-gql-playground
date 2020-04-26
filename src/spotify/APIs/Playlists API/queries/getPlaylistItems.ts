@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import qs from "qs";
-import { UserInputError } from "apollo-server-micro";
+import { UserInputError, gql } from "apollo-server-micro";
 /*
 https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-playlists-tracks
 Get a Playlist's Items
@@ -34,6 +34,20 @@ Response: On success, the response body contains an array of track objects and e
 
 
 */
+
+export const getPlaylistItemsGQL = gql`
+  extend type Query {
+    """
+    items { ...on PlaylistTrackObject }
+    """
+    getPlaylistItems(
+      playlist_id: String!
+      market: String
+      limit: String
+      offset: Int
+    ): PagingObject # PlaylistTrackObject
+  }
+`;
 
 // TODO: Determine if fields param can be implemented to reduce over-fetching - low priority
 type getPlaylistItems = (

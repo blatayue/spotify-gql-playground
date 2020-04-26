@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { UserInputError, ForbiddenError } from "apollo-server-micro";
+import { UserInputError, ForbiddenError, gql } from "apollo-server-micro";
 /*
 https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-reorder-playlists-tracks
 Reorder a Playlist's Items
@@ -36,6 +36,18 @@ Response: On success, the HTTP status code in the response header is 201 Created
 	On error, the header status code is an error code and the response body contains an error object.
 	Trying to set an item when you do not have the user’s authorization, or when there are more than 10.000 items in the playlist, returns error 403 Forbidden.
 */
+
+export const reorderPlaylistItemsGQL = gql`
+  extend type Mutation {
+    reorderPlaylistItems(
+      playlist_id: String!
+      insert_before: Int!
+      range_start: Int!
+      range_length: Int
+      snapshot_id: String
+    ): SnapshotResponse
+  }
+`;
 
 type reorderPlaylistItems = (
   parent: any, // query root

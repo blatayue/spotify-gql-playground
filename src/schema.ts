@@ -3,8 +3,8 @@ import SpotifyWebApi from "spotify-web-api-node";
 import { playlistIdsToCamelot } from "./spotifyUtils";
 
 import {
-  playlistMutations,
-  playlistQueries,
+  playlistMutationResolvers,
+  playlistQueryResolvers,
 } from "./spotify/APIs/Playlists API";
 
 import { AlbumResolvers } from "./spotify/APIs/Albums API";
@@ -40,14 +40,14 @@ const resolvers = {
       }).then((camelot) => camelot[0]),
     getAccessToken: async (_, __, context: spotifyCtx) =>
       context.spotify.getAccessToken(),
-    ...playlistQueries,
+    ...playlistQueryResolvers,
     ...AlbumResolvers,
     ...PlayerQueries,
     ...BrowseResolvers,
     ...TrackResolvers,
   },
   Mutation: {
-    ...playlistMutations,
+    ...playlistMutationResolvers,
     ...PlayerMutations,
   },
   PagingItems: {

@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import qs from "qs";
-import { UserInputError } from "apollo-server-micro";
+import { UserInputError, gql } from "apollo-server-micro";
 /*
 https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-playlists-tracks
 Get a Playlist
@@ -34,6 +34,12 @@ Response: On success, the response body contains a playlist object in JSON forma
 
 
 */
+
+export const getPlaylistGQL = gql`
+  extend type Query {
+    getPlaylist(playlist_id: String!, market: String): PlaylistObject
+  }
+`;
 
 // TODO: Determine if fields param can be implemented to reduce over-fetching - low priority
 /* 

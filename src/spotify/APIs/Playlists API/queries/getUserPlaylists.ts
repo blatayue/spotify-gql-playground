@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import qs from "qs";
-import { UserInputError } from "apollo-server-micro";
+import { UserInputError, gql } from "apollo-server-micro";
 /*
 https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-list-users-playlists
 Get a List of a User's Playlists
@@ -24,6 +24,14 @@ Response: On success, the HTTP status code in the response header is 200 OK
     
     On error, the header status code is an error code and the response body contains an error object.
 */
+export const getUserPlaylistsGQL = gql`
+  extend type Query {
+    """
+    items {...on UserPlaylistObject }
+    """
+    getUserPlaylists(user_id: String!, limit: Int, offset: Int): PagingObject # UserPlaylistObject
+  }
+`;
 
 type getUserPlaylists = (
   parent: any, // query root

@@ -38,7 +38,9 @@ import PlayerQueryTypeDefs, {
   PlayHistoryObject,
 } from "./APIs/Player API";
 
-import PlaylistQueryTypeDefs, {
+import {
+  playlistMutationTypeDefs,
+  playlistQueryTypeDefs,
   PlaylistObject,
   PlaylistTrackObject,
   UserPlaylistObject,
@@ -114,7 +116,8 @@ export default [
     AlbumQueryTypeDefs,
     BrowseQueryTypeDefs,
     PlayerQueryTypeDefs,
-    PlaylistQueryTypeDefs,
+    ...playlistQueryTypeDefs,
+    ...playlistMutationTypeDefs,
     TracksQueryTypeDefs,
   ],
 ];

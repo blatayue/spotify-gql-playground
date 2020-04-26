@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import qs from "qs";
-import { UserInputError } from "apollo-server-micro";
+import { UserInputError, gql } from "apollo-server-micro";
 /*
 https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-playlist-cover
 Get a Playlist Cover Image
@@ -17,6 +17,16 @@ Response: On success, the response body contains a list of image objects in JSON
     
     On error, the header status code is an error code and the response body contains an error object.
 */
+
+export const uploadCustomPlaylistCoverGQL = gql`
+  extend type Mutation {
+    uploadCustomPlaylistCover(
+      playlist_id: String!
+      image: String
+      image_url: String
+    ): Boolean
+  }
+`;
 
 type uploadCustomPlaylistCover = (
   parent: any, // query root
