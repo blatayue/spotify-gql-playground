@@ -49,5 +49,13 @@ export default gql`
       uris: [String]!
       snapshot_id: String
     ): SnapshotResponse
+
+    createPlaylist(
+      user_id: String!
+      name: String
+      public: Boolean
+      collaborative: Boolean
+      description: String
+    ): PlaylistObject
   }
 `;
