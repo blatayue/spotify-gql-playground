@@ -7,6 +7,8 @@ import {
   playlistQueryResolvers,
 } from "./spotify/APIs/Playlists API";
 
+import { ArtistQueryResolvers } from "./spotify/APIs/Artists API";
+
 import { AlbumResolvers } from "./spotify/APIs/Albums API";
 import { BrowseResolvers } from "./spotify/APIs/Browse API";
 import { PlayerQueries, PlayerMutations } from "./spotify/APIs/Player API";
@@ -42,6 +44,7 @@ const resolvers = {
       context.spotify.getAccessToken(),
     ...playlistQueryResolvers,
     ...AlbumResolvers,
+    ...ArtistQueryResolvers,
     ...PlayerQueries,
     ...BrowseResolvers,
     ...TrackResolvers,
@@ -52,6 +55,7 @@ const resolvers = {
   },
   PagingItems: {
     __resolveType: (obj, ctx, info) => {
+      console.log(obj.type);
       // So the type prop isn't really unique enough, but sometimes it's alright
       if (obj.played_at) return "PlayHistoryObject";
       if (obj.icons) return "CategoryObject";
@@ -63,6 +67,9 @@ const resolvers = {
         }
         case "album": {
           return "SimplifiedAlbumObject";
+        }
+        case "artist": {
+          return "SimplifiedArtistObject";
         }
         case "playlist": {
           if (!obj.followers) return "UserPlaylistObject";

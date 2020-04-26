@@ -7,7 +7,11 @@ import AlbumQueryTypeDefs, {
   SimplifiedAlbumObject,
 } from "./APIs/Albums API";
 
-import { ArtistObject, SimplifiedArtistObject } from "./APIs/Artists API";
+import {
+  ArtistQueryTypeDefs,
+  ArtistObject,
+  SimplifiedArtistObject,
+} from "./APIs/Artists API";
 
 import BrowseQueryTypeDefs, {
   RecommendationSeedObject,
@@ -115,6 +119,7 @@ export default [
   // Queries and Mutations
   ...[
     AlbumQueryTypeDefs,
+    ...ArtistQueryTypeDefs,
     BrowseQueryTypeDefs,
     PlayerQueryTypeDefs,
     ...playlistQueryTypeDefs,

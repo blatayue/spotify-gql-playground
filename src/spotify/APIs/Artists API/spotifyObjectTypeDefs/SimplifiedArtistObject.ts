@@ -6,7 +6,7 @@ export const SimplifiedArtistObject = gql`
     href: String
     id: String
     name: String
-    type: String # artist,
+    type: String # artist
     uri: String
   }
 `;

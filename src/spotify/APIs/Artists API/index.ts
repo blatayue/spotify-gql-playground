@@ -1,7 +1,6 @@
 // resolvers
-// export * from "./resolvers";
+export * as ArtistQueryResolvers from "./queries";
 // response TypeDefs
 export * from "./spotifyObjectTypeDefs";
 // query TypeDefs
-// import ArtistQueryTypeDefs from "./queryTypeDefs/typeDefs";
-// export default ArtistQueryTypeDefs
+export * from "./typeDefs";

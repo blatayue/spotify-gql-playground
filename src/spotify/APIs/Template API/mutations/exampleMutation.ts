@@ -39,26 +39,17 @@ type mutation = (
   context: any
 ) => Promise<object>;
 
-export const mutation: mutation = async (
-  parent,
-  { },
-  context
-) => {
-  const resp = await fetch(
-    `ENDPOINT_URI`,
-    {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${context.spotify.getAccessToken()}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({}),
-    }
-  );
+export const mutation: mutation = async (parent, {}, context) => {
+  const resp = await fetch(`ENDPOINT_URI`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${context.spotify.getAccessToken()}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({}),
+  });
   if (resp.status === 403) {
-    throw new ForbiddenError(
-      "SPECIFIC ERR MSG"
-    );
+    throw new ForbiddenError("SPECIFIC ERR MSG");
   }
   if (resp.status !== 201 /* 200, 204 */)
     throw new UserInputError((await resp.json()).error.message); // From api

@@ -24,8 +24,7 @@ export default gql`
       country: String
       limit: Int
       offset: Int
-    ): AlbumtPagingResponse
-
+    ): AlbumtPagingResponse # typo
     getRecommendationGenres: RecommendationGenres
 
     getAllFeaturedPlaylists(
@@ -59,7 +58,7 @@ export default gql`
   type PlaylistPagingResponse {
     playlists: PagingObject # PlaylistObject
   }
-  type AlbumtPagingResponse {
+  type AlbumtPagingResponse { # typo
     albums: PagingObject # SimplifiedAlbumTrack
   }
 `;
