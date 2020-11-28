@@ -77,7 +77,7 @@ export const AudioAnalysisObject = gql`
     tempo: Float
     tempo_confidence: Float
     time_signature: Int
-    time_signature_confidence: Int
+    time_signature_confidence: Float
     key: Int
     key_confidence: Float
     mode: Int

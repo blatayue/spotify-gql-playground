@@ -24,6 +24,7 @@ export const getAudioAnalysisGQL = gql`
     """
 
     """
+    getWaveForm(id: String): [Float]
     getAudioAnalysis(id: String): AudioAnalysisObject
   }
 `;
@@ -48,4 +49,50 @@ export const getAudioAnalysis: getAudioAnalysis = async (
   if (resp.status != 200)
     throw new UserInputError((await resp.json()).error.message);
   return await resp.json();
+};
+
+interface analysisdata {
+  bars: [any];
+  beats: [any];
+  meta: any;
+  sections: [any];
+  segments: [
+    {
+      loudness_max: number;
+      start: number;
+      duration: number;
+    }
+  ];
+  tatums: [any];
+  track: {
+    duration: number;
+  };
+}
+
+export const getWaveForm = async (parent, { id }, context) => {
+  const analysis: any = await getAudioAnalysis(parent, { id }, context);
+  const data: analysisdata = analysis;
+  const segments = data.segments.map((segment) => ({
+    start: segment.start / data.track.duration,
+    duration: segment.duration / data.track.duration,
+    loudness: 1 - Math.min(Math.max(segment.loudness_max, -32), 0) / -32
+  }));
+  const min = Math.min(...segments.map((segment) => segment.loudness));
+  const max = Math.max(...segments.map((segment) => segment.loudness));
+  console.log(id, min, max);
+  // smooth, sleek, illelgible
+  const waveform = Array(1000)
+    .fill(0)
+    .map(
+      (_, i) =>
+        Math.round(
+          (segments.find(
+            (segment) => i / 1000 <= segment.start + segment.duration
+          ).loudness /
+            max) *
+            100
+        ) / 100
+    );
+
+  return waveform;
 };

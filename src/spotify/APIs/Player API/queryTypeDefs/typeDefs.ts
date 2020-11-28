@@ -32,7 +32,7 @@ export default gql`
       device_id: String
       context_uri: String
       uris: [String]
-      position_ms: Int
+      position_ms: Float
       offset: offset
     ): Boolean
     seekPlayer(device_id: String, position_ms: Int, percent: Float): Boolean
