@@ -75,7 +75,7 @@ export const getWaveForm = async (parent, { id }, context) => {
   const segments = data.segments.map((segment) => ({
     start: segment.start / data.track.duration,
     duration: segment.duration / data.track.duration,
-    loudness: 1 - Math.min(Math.max(segment.loudness_max, -32), 0) / -32
+    loudness: 1 - Math.min(Math.max(segment.loudness_max, -32), 0) / -32,
   }));
   const min = Math.min(...segments.map((segment) => segment.loudness));
   const max = Math.max(...segments.map((segment) => segment.loudness));

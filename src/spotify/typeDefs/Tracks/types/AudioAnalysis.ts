@@ -2,8 +2,6 @@
 
 import { gql } from "apollo-server-micro";
 
-
-
 export const AudioAnalysis = gql`
     type AudioAnalysis {
     bars: [
@@ -119,4 +117,4 @@ export const AudioAnalysis = gql`
         rhythm_version: 1
     }
 }
-`
+`;
